@@ -6,6 +6,7 @@
 #include "../GL/VertexBuffer/VertexBuffer.h"
 #include "../GL/Shader/Shader.h"
 #include "../Renderer/Renderer.h"
+#include "../Texture/Texture.h"
 
 Window::Window(const std::string& title, int width, int height)
 {
@@ -37,10 +38,10 @@ void Window::loop()
 
 	std::vector<GLfloat> positions =
 	{
-		-0.5f, -0.5f,
-		 0.5f, -0.5f,
-		 0.5f,  0.5f,
-		-0.5f,  0.5f
+		-0.5f, -0.5f, 0.0f, 0.0f,
+		 0.5f, -0.5f, 1.0f, 0.0f,
+		 0.5f,  0.5f, 1.0f, 1.0f,
+		-0.5f,  0.5f, 0.0f, 1.0f
 
 	};
 
@@ -50,10 +51,16 @@ void Window::loop()
 		2,3,0
 	};
 
+	
+	GLCall(glEnable(GL_BLEND));
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+
 	GL::VertexArray va;
-	GL::VertexBuffer vb(positions.data(), 4 * 2 * sizeof(GLfloat));
+	GL::VertexBuffer vb(positions.data(), 4 * 4 * sizeof(GLfloat));
 
 	GL::VertexBufferLayout layout;
+	layout.Push<GLfloat>(2);
 	layout.Push<GLfloat>(2);
 
 	va.AddBuffer(vb, layout);
@@ -62,7 +69,11 @@ void Window::loop()
 
 	GL::Shader shader("res/Shaders/first.frag", "res/Shaders/first.vert");
 	shader.Bind();
-	shader.SetUniform4f("u_Color", 0.8f, 0.3f,0.8f, 1.0f);
+	//shader.SetUniform4f("u_Color", 0.8f, 0.3f,0.8f, 1.0f);
+
+	Texture texture("res/Textures/Texture1.png");
+	texture.Bind();
+	shader.SetUniform1i("u_Texture", 0);
 	
 	va.Bind();
 	vb.Bind();
@@ -80,16 +91,16 @@ void Window::loop()
 		renderer.Clear();
 
 		shader.Bind();
-		shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
+		//shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
 
 		renderer.Draw(va, ib, shader);
 
-		if (r > 1.0f)
-			increment = -0.05f;
-		else if (r < 0.05f)
-			increment = 0.05f;
+		//if (r > 1.0f)
+		//	increment = -0.05f;
+		//else if (r < 0.05f)
+		//	increment = 0.05f;
 
-		r += increment;
+		//r += increment;
 
 
 		glfwSwapBuffers(mWindow);

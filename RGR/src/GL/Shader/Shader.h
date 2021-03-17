@@ -25,6 +25,8 @@ namespace GL
 		void Unbind() const;
 
 		//Set uniforms
+		void SetUniform1i(const std::string& name, GLint value);
+		void SetUniform1f(const std::string& name, GLfloat value);
 		void SetUniform4f(const std::string& name, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
 
 
@@ -32,7 +34,7 @@ namespace GL
 		std::string ParseShader(const std::string& path);
 		GLuint CompileShader(GLuint type, const std::string& source);
 		GLuint CreateShader(const std::string& VertexShader, const std::string& FragmentShader);
-		GLuint GetUniformLocation(const std::string& name);
+		GLint GetUniformLocation(const std::string& name);
 	};
 }
 
