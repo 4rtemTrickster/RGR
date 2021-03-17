@@ -7,6 +7,8 @@ class Window
 {
 private:
 	GLFWwindow* mWindow;
+	int m_Width;
+	int m_Height;
 	
 public:
 	

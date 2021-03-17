@@ -9,7 +9,7 @@ int main(void)
 	{
 		GLFW glfw;
 
-		Window window("RGR", 640, 480);
+		Window window("RGR", 1280, 720);
 		window.SetContextCurrent();
 		window.loop();
  

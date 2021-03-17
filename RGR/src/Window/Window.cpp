@@ -12,6 +12,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 Window::Window(const std::string& title, int width, int height)
+	: m_Width(width), m_Height(height)
 {
 	mWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
@@ -41,10 +42,10 @@ void Window::loop()
 
 	std::vector<GLfloat> positions =
 	{
-		-0.5f, -0.5f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 1.0f, 1.0f,
-		-0.5f,  0.5f, 0.0f, 1.0f
+		100.0f, 100.0f, 0.0f, 0.0f,
+		200.0f, 100.0f, 1.0f, 0.0f,
+		200.0f, 200.0f, 1.0f, 1.0f,
+		100.0f, 200.0f, 0.0f, 1.0f
 
 	};
 
@@ -71,8 +72,7 @@ void Window::loop()
 	GL::IndexBuffer ib(indices.data(), 6);
 
 
-	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
-
+	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(m_Width), 0.0f, static_cast<float>(m_Height), -1.0f, 1.0f);
 
 	
 
