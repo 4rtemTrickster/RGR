@@ -72,6 +72,7 @@ void Window::loop()
 
 	GLfloat r = 0.f;
 	GLfloat increment = 0.05f;
+
 	
 
 	while (!glfwWindowShouldClose(mWindow))

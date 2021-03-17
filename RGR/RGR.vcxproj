@@ -157,6 +157,8 @@
     <ClCompile Include="src\GLFW\GLFW.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Texture\Texture.cpp" />
+    <ClCompile Include="src\Vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\GL\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="src\GLFW\GLFW.h" />
     <ClInclude Include="src\Help.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
+    <ClInclude Include="src\Texture\Texture.h" />
+    <ClInclude Include="src\Vendor\stb_image\stb_image.h" />
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\GL\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="src\GL\VertexArray\VertexArray.h" />
