@@ -8,6 +8,9 @@
 #include "../Renderer/Renderer.h"
 #include "../Texture/Texture.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 Window::Window(const std::string& title, int width, int height)
 {
 	mWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
@@ -67,9 +70,16 @@ void Window::loop()
 
 	GL::IndexBuffer ib(indices.data(), 6);
 
+
+	glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+
+
+	
+
 	GL::Shader shader("res/Shaders/first.frag", "res/Shaders/first.vert");
 	shader.Bind();
 	//shader.SetUniform4f("u_Color", 0.8f, 0.3f,0.8f, 1.0f);
+	shader.SetUniformMat4f("u_MVP", proj);
 
 	Texture texture("res/Textures/Texture1.png");
 	texture.Bind();
