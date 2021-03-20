@@ -42,10 +42,10 @@ void Window::loop()
 
 	std::vector<GLfloat> positions =
 	{
-		100.0f, 100.0f, 0.0f, 0.0f,
-		200.0f, 100.0f, 1.0f, 0.0f,
-		200.0f, 200.0f, 1.0f, 1.0f,
-		100.0f, 200.0f, 0.0f, 1.0f
+		-0.5f, -0.5f, 0.0f, 0.0f,
+		 0.5f, -0.5f, 1.0f, 0.0f,
+		 0.5f,  0.5f, 1.0f, 1.0f,
+		-0.5f,  0.5f, 0.0f, 1.0f
 
 	};
 
@@ -72,16 +72,25 @@ void Window::loop()
 	GL::IndexBuffer ib(indices.data(), 6);
 
 
-	glm::mat4 proj = glm::ortho(0.0f, static_cast<float>(m_Width), 0.0f, static_cast<float>(m_Height), -1.0f, 1.0f);
+	glm::mat4 model(1.0f);
+	model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	//model = glm::scale(model, glm::vec3(2.0f));
 
+	glm::mat4 view(1.0f);;
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+	glm::mat4 proj(1.0f);;
+	proj = glm::perspective(glm::radians(45.0f), static_cast<float>(m_Width)/static_cast<float>(m_Height) , 0.1f, 100.0f);
+	
+	glm::mat4 mvp(1.0f);
+	mvp = proj * view * model;
 	
 
 	GL::Shader shader("res/Shaders/first.frag", "res/Shaders/first.vert");
 	shader.Bind();
-	//shader.SetUniform4f("u_Color", 0.8f, 0.3f,0.8f, 1.0f);
-	shader.SetUniformMat4f("u_MVP", proj);
+	shader.SetUniformMat4f("u_MVP", mvp);
 
-	Texture texture("res/Textures/Texture1.png");
+	Texture texture("res/Textures/Texture2.png");
 	texture.Bind();
 	shader.SetUniform1i("u_Texture", 0);
 	

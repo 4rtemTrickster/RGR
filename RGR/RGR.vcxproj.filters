@@ -1352,5 +1352,8 @@
     <Image Include="res\Textures\Texture1.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="res\Textures\Texture2.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
