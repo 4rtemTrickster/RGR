@@ -42,7 +42,7 @@ void Window::loop()
 {
 	Renderer renderer;
 
-	GLfloat positions[] =
+	std::vector<GLfloat> positions =
 	{	//positions				//Texture coordinates
 		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, //0
 		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f, //1
@@ -102,7 +102,7 @@ void Window::loop()
 
 
 	GL::VertexArray va;
-	GL::VertexBuffer vb(positions, sizeof(positions));
+	GL::VertexBuffer vb(positions.data(), sizeof(GLfloat) * positions.size());
 
 	GL::VertexBufferLayout layout;
 	layout.Push<GLfloat>(3);
@@ -114,13 +114,11 @@ void Window::loop()
 
 
 	glm::mat4 model(1.0f);
-	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+
 	//model = glm::scale(model, glm::vec3(2.0f));
 
 	glm::mat4 view(1.0f);;
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
 	glm::mat4 proj(1.0f);;
 	proj = glm::perspective(glm::radians(45.0f), static_cast<float>(m_Width)/static_cast<float>(m_Height) , 0.1f, 100.0f);
@@ -142,27 +140,21 @@ void Window::loop()
 	shader.Unbind();
 
 
-	GLfloat r = 0.f;
-	GLfloat increment = 0.05f;
+	GLfloat r = 1.0f;
 
 	
 
 	while (!glfwWindowShouldClose(mWindow))
 	{
+		
 		renderer.Clear();
 
 		shader.Bind();
-		//shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
+
+		model = glm::rotate(model, glm::radians(0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
+		shader.SetUniformMat4f("u_Model", model);
 
 		renderer.Draw(va, ib, shader);
-
-		//if (r > 1.0f)
-		//	increment = -0.05f;
-		//else if (r < 0.05f)
-		//	increment = 0.05f;
-
-		//r += increment;
-
 
 		glfwSwapBuffers(mWindow);
 		glfwPollEvents();
