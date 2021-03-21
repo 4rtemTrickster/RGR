@@ -24,6 +24,8 @@ Window::Window(const std::string& title, int width, int height)
 	glewExperimental = true;
 	if (glewInit() != GLEW_OK)
 		throw std::runtime_error("Could not initialize GLEW");
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 Window::~Window()
@@ -40,19 +42,58 @@ void Window::loop()
 {
 	Renderer renderer;
 
-	std::vector<GLfloat> positions =
-	{
-		-0.5f, -0.5f, 0.0f, 0.0f,
-		 0.5f, -0.5f, 1.0f, 0.0f,
-		 0.5f,  0.5f, 1.0f, 1.0f,
-		-0.5f,  0.5f, 0.0f, 1.0f
+	GLfloat positions[] =
+	{	//positions				//Texture coordinates
+		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f, //0
+		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f, //1
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //2
+		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, //3
 
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, //4
+		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f, //5
+		 0.5f,  0.5f,  0.5f,	1.0f, 1.0f, //6
+		-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, //7
+
+		-0.5f,  0.5f,  0.5f,	1.0f, 0.0f, //8
+		-0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //9
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, //10
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, //11
+
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f, //12
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //13
+		 0.5f, -0.5f, -0.5f,	0.0f, 1.0f, //14
+		 0.5f, -0.5f,  0.5f,	0.0f, 0.0f, //15
+
+		-0.5f, -0.5f, -0.5f,	0.0f, 1.0f, //16
+		 0.5f, -0.5f, -0.5f,	1.0f, 1.0f, //17
+		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f, //18
+		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, //19
+
+		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f, //20
+		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //21
+		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f, //22
+		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f  //23
 	};
 
 	std::vector<GLuint> indices =
 	{
-		0,1,2,
-		2,3,0
+		0,	1,	2,
+		2,	3,	0,
+
+		4,	5,	6,
+		6,	7,	4,
+
+		8,	9,	10,
+		10,	11,	8,
+
+		12,	13, 14,
+		14, 15, 12,
+
+		16,	17,	18,
+		18, 19, 16,
+
+		20, 21, 22,
+		22, 23, 20
 	};
 
 	
@@ -61,19 +102,21 @@ void Window::loop()
 
 
 	GL::VertexArray va;
-	GL::VertexBuffer vb(positions.data(), 4 * 4 * sizeof(GLfloat));
+	GL::VertexBuffer vb(positions, sizeof(positions));
 
 	GL::VertexBufferLayout layout;
-	layout.Push<GLfloat>(2);
+	layout.Push<GLfloat>(3);
 	layout.Push<GLfloat>(2);
 
 	va.AddBuffer(vb, layout);
 
-	GL::IndexBuffer ib(indices.data(), 6);
+	GL::IndexBuffer ib(indices.data(), indices.size());
 
 
 	glm::mat4 model(1.0f);
 	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 	//model = glm::scale(model, glm::vec3(2.0f));
 
 	glm::mat4 view(1.0f);;
