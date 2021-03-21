@@ -5,10 +5,13 @@ layout(location = 1) in vec2 texCoord;
 
 out vec2 v_TexCoord;
 
-uniform mat4 u_MVP;
+
+uniform mat4 u_Model;
+uniform mat4 u_View;
+uniform mat4 u_Projection;
 
 void main()
 {
 	v_TexCoord = texCoord;
-	gl_Position = u_MVP * position;
+	gl_Position = u_Projection * u_View * u_Model * position;
 }

@@ -73,7 +73,7 @@ void Window::loop()
 
 
 	glm::mat4 model(1.0f);
-	model = glm::rotate(model, glm::radians(-30.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	//model = glm::scale(model, glm::vec3(2.0f));
 
 	glm::mat4 view(1.0f);;
@@ -82,13 +82,12 @@ void Window::loop()
 	glm::mat4 proj(1.0f);;
 	proj = glm::perspective(glm::radians(45.0f), static_cast<float>(m_Width)/static_cast<float>(m_Height) , 0.1f, 100.0f);
 	
-	glm::mat4 mvp(1.0f);
-	mvp = proj * view * model;
-	
 
 	GL::Shader shader("res/Shaders/first.frag", "res/Shaders/first.vert");
 	shader.Bind();
-	shader.SetUniformMat4f("u_MVP", mvp);
+	shader.SetUniformMat4f("u_Projection", proj);
+	shader.SetUniformMat4f("u_View", view);
+	shader.SetUniformMat4f("u_Model", model);
 
 	Texture texture("res/Textures/Texture2.png");
 	texture.Bind();
