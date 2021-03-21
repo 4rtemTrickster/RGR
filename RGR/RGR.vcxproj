@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\GL\Shader\Shader.cpp" />
     <ClCompile Include="src\GL\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="src\Help.cpp" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\GL\VertexArray\VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\GL\Shader\Shader.h" />
     <ClInclude Include="src\GL\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="src\GLFW\GLFW.h" />

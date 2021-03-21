@@ -1,5 +1,7 @@
 ﻿#include "Window.h"
 
+
+#include "../Camera/Camera.h"
 #include "../GL/VertexArray/VertexArray.h"
 #include "../GL/IndexBuffer/IndexBuffer.h"
 #include "../GL/VertexArray/VertexBufferLayout.h"
@@ -11,31 +13,46 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-Window::Window(const std::string& title, int width, int height)
-	: m_Width(width), m_Height(height)
-{
-	mWindow = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
-	if (!mWindow)
+//TODO: FUCKING STATIC ya know
+// Camera
+static Camera camera;
+static bool keys[1024];
+static GLfloat lastX = 400;
+static GLfloat lastY = 300;
+
+static bool firstMouse = true;
+
+Window::Window(const std::string& title, int width, int height)
+	: m_Width(width), m_Height(height), deltaTime(0), lastFrame(0)
+{
+	m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+
+	if (!m_Window)
 		throw std::runtime_error("Could not initialize window");
 
 	SetContextCurrent();
 
-	glewExperimental = true;
+	glfwSetKeyCallback(m_Window, key_callback);
+	glfwSetCursorPosCallback(m_Window, mouse_callback);
+
+	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		throw std::runtime_error("Could not initialize GLEW");
 
-	glEnable(GL_DEPTH_TEST);
+	GLCall(glEnable(GL_DEPTH_TEST));
 }
 
 Window::~Window()
 {
-	glfwDestroyWindow(mWindow);
+	glfwDestroyWindow(m_Window);
 }
 
 void Window::SetContextCurrent() const
 {
-	glfwMakeContextCurrent(mWindow);
+	glfwMakeContextCurrent(m_Window);
 }
 
 void Window::loop()
@@ -118,7 +135,6 @@ void Window::loop()
 	//model = glm::scale(model, glm::vec3(2.0f));
 
 	glm::mat4 view(1.0f);;
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -5.0f));
 
 	glm::mat4 proj(1.0f);;
 	proj = glm::perspective(glm::radians(45.0f), static_cast<float>(m_Width)/static_cast<float>(m_Height) , 0.1f, 100.0f);
@@ -144,19 +160,78 @@ void Window::loop()
 
 	
 
-	while (!glfwWindowShouldClose(mWindow))
+	while (!glfwWindowShouldClose(m_Window))
 	{
+		GLfloat CurrentFrame = glfwGetTime();
+		deltaTime = CurrentFrame - lastFrame;
+		lastFrame = CurrentFrame;
+
+		glfwPollEvents();
+		do_movement();
 		
 		renderer.Clear();
 
 		shader.Bind();
 
-		model = glm::rotate(model, glm::radians(0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
-		shader.SetUniformMat4f("u_Model", model);
+		view = camera.GetViewMatrix();
+		shader.SetUniformMat4f("u_View", view);
+
+		//model = glm::rotate(model, glm::radians(0.5f), glm::vec3(1.0f, 1.0f, 1.0f));
+		//shader.SetUniformMat4f("u_Model", model);
 
 		renderer.Draw(va, ib, shader);
 
-		glfwSwapBuffers(mWindow);
+		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
 	}
+}
+
+void Window::key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+{
+	//cout << key << endl;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+	if (key >= 0 && key < 1024)
+	{
+		if (action == GLFW_PRESS)
+			keys[key] = true;
+		else if (action == GLFW_RELEASE)
+			keys[key] = false;
+	}
+}
+
+void Window::mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	GLfloat xoffset = xpos - lastX;
+	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+
+	lastX = xpos;
+	lastY = ypos;
+
+	camera.ProcessMouseMovement(xoffset, yoffset);
+}
+
+void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	camera.ProcessMouseScroll(yoffset);
+}
+
+void Window::do_movement() const
+{
+	// Camera controls
+	if (keys[GLFW_KEY_W])
+		camera.ProcessKeyboard(FORWARD, deltaTime);
+	if (keys[GLFW_KEY_S])
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
+	if (keys[GLFW_KEY_A])
+		camera.ProcessKeyboard(LEFT, deltaTime);
+	if (keys[GLFW_KEY_D])
+		camera.ProcessKeyboard(RIGHT, deltaTime);
 }
