@@ -19,7 +19,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 
 
-//TODO: FUCKING STATIC ya know
+//TODO: FIX this sh**
 // Camera
 static Camera camera;
 static bool keys[1024];
@@ -41,6 +41,7 @@ Window::Window(const std::string& title, int width, int height)
 
 	glfwSetKeyCallback(m_Window, key_callback);
 	glfwSetCursorPosCallback(m_Window, mouse_callback);
+	glfwSetScrollCallback(m_Window, scroll_callback);
 
 	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -228,7 +229,6 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 	//cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 	{
-		//glfwSetWindowShouldClose(window, GL_TRUE);
 		if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
 		{
 			pause = true;
