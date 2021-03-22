@@ -36,9 +36,6 @@
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\GL\VertexArray\VertexBufferLayout.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="src\GL\Shader\Shader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>

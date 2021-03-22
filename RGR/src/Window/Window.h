@@ -15,7 +15,6 @@ private:
 	GLfloat deltaTime;	// Time between current frame and last frame
 	GLfloat lastFrame;  	// Time of last frame
 
-	
 public:
 	
 	Window(const std::string& title, int width, int height);

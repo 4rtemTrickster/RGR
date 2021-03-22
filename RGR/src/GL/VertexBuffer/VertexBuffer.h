@@ -16,4 +16,3 @@ namespace GL
 		void Unbind() const;
 	};
 }
-

@@ -170,7 +170,6 @@
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\GL\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp" />
-    <ClCompile Include="src\GL\VertexArray\VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\Camera.h" />

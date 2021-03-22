@@ -27,6 +27,7 @@ static GLfloat lastX = 400;
 static GLfloat lastY = 300;
 
 static bool firstMouse = true;
+static bool pause = false;
 
 Window::Window(const std::string& title, int width, int height)
 	: m_Width(width), m_Height(height), deltaTime(0), lastFrame(0)
@@ -184,16 +185,22 @@ void Window::loop()
 		GLfloat CurrentFrame = glfwGetTime();
 		deltaTime = CurrentFrame - lastFrame;
 		lastFrame = CurrentFrame;
-
-		glfwPollEvents();
-		do_movement();
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
 		
 		renderer.Clear();
+		
+		glfwPollEvents();
+	
 
-		ImGui::ShowDemoWindow();
+		if (pause)
+		{
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
+			
+			ImGui::ShowDemoWindow();
+		}
+		else
+			do_movement();
 
 		shader.Bind();
 
@@ -205,8 +212,11 @@ void Window::loop()
 
 		renderer.Draw(va, ib, shader);
 
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		if (pause)
+		{
+			ImGui::Render();
+			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		}
 
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
@@ -217,7 +227,20 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 {
 	//cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
+	{
+		//glfwSetWindowShouldClose(window, GL_TRUE);
+		if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
+		{
+			pause = true;
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else
+		{
+			pause = false;
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
+	
+	}
 	if (key >= 0 && key < 1024)
 	{
 		if (action == GLFW_PRESS)
@@ -242,7 +265,9 @@ void Window::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	lastX = xpos;
 	lastY = ypos;
 
-	camera.ProcessMouseMovement(xoffset, yoffset);
+	if (!pause)
+		camera.ProcessMouseMovement(xoffset, yoffset);
+	
 }
 
 void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

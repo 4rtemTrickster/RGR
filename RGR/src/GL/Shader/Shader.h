@@ -40,4 +40,3 @@ namespace GL
 		GLint GetUniformLocation(const std::string& name);
 	};
 }
-
