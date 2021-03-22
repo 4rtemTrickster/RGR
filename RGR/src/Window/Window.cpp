@@ -1,7 +1,5 @@
 ﻿#include "Window.h"
 
-
-#include "../Camera/Camera.h"
 #include "../GL/VertexArray/VertexArray.h"
 #include "../GL/IndexBuffer/IndexBuffer.h"
 #include "../GL/VertexArray/VertexBufferLayout.h"
@@ -12,6 +10,13 @@
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+
+
+#include "../Camera/Camera.h"
+#include "imgui/imgui_impl_opengl3.h"
 
 
 //TODO: FUCKING STATIC ya know
@@ -43,10 +48,20 @@ Window::Window(const std::string& title, int width, int height)
 		throw std::runtime_error("Could not initialize GLEW");
 
 	GLCall(glEnable(GL_DEPTH_TEST));
+
+	//ImGui initialization
+	ImGui::CreateContext();
+	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
+	ImGui_ImplOpenGL3_Init("#version 330 core");
+	ImGui::StyleColorsDark();
 }
 
 Window::~Window()
 {
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+	
 	glfwDestroyWindow(m_Window);
 }
 
@@ -172,8 +187,13 @@ void Window::loop()
 
 		glfwPollEvents();
 		do_movement();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 		
 		renderer.Clear();
+
+		ImGui::ShowDemoWindow();
 
 		shader.Bind();
 
@@ -184,6 +204,9 @@ void Window::loop()
 		//shader.SetUniformMat4f("u_Model", model);
 
 		renderer.Draw(va, ib, shader);
+
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();

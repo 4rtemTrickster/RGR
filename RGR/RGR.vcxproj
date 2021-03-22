@@ -160,6 +160,12 @@
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Texture\Texture.cpp" />
     <ClCompile Include="src\Vendor\glm\detail\glm.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Vendor\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\Vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\GL\VertexBuffer\VertexBuffer.cpp" />
@@ -456,6 +462,14 @@
     <ClInclude Include="src\Vendor\glm\vec3.hpp" />
     <ClInclude Include="src\Vendor\glm\vec4.hpp" />
     <ClInclude Include="src\Vendor\glm\vector_relational.hpp" />
+    <ClInclude Include="src\Vendor\imgui\imconfig.h" />
+    <ClInclude Include="src\Vendor\imgui\imgui.h" />
+    <ClInclude Include="src\Vendor\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\Vendor\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="src\Vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\Vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\Vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="src\Vendor\stb_image\stb_image.h" />
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\GL\VertexBuffer\VertexBuffer.h" />
