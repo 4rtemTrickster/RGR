@@ -5,8 +5,8 @@
 #include "../GL/VertexArray/VertexBufferLayout.h"
 #include "../GL/VertexBuffer/VertexBuffer.h"
 #include "../GL/Shader/Shader.h"
-#include "../Renderer/Renderer.h"
-#include "../Texture/Texture.h"
+#include "../GL/Renderer/Renderer.h"
+#include "../GL/Texture/Texture.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

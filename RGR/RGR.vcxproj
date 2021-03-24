@@ -157,8 +157,8 @@
     <ClCompile Include="src\Help.cpp" />
     <ClCompile Include="src\GLFW\GLFW.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Texture\Texture.cpp" />
+    <ClCompile Include="src\GL\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\GL\Texture\Texture.cpp" />
     <ClCompile Include="src\Vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui_demo.cpp" />
@@ -177,8 +177,8 @@
     <ClInclude Include="src\GL\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="src\GLFW\GLFW.h" />
     <ClInclude Include="src\Help.h" />
-    <ClInclude Include="src\Renderer\Renderer.h" />
-    <ClInclude Include="src\Texture\Texture.h" />
+    <ClInclude Include="src\GL\Renderer\Renderer.h" />
+    <ClInclude Include="src\GL\Texture\Texture.h" />
     <ClInclude Include="src\Vendor\glm\common.hpp" />
     <ClInclude Include="src\Vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\Vendor\glm\detail\compute_vector_relational.hpp" />
