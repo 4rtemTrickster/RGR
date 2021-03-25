@@ -72,6 +72,12 @@
     <ClCompile Include="src\GL\Renderer\Renderer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\Tests\Clear Color\TestClearColor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLFW\GLFW.h">
@@ -978,6 +984,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="src\GL\Renderer\Renderer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\Test.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\Clear Color\TestClearColor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

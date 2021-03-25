@@ -159,6 +159,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\GL\Renderer\Renderer.cpp" />
     <ClCompile Include="src\GL\Texture\Texture.cpp" />
+    <ClCompile Include="src\Tests\Clear Color\TestClearColor.cpp" />
     <ClCompile Include="src\Vendor\glm\detail\glm.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\Vendor\imgui\imgui_demo.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\GL\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp" />
+    <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\Camera.h" />
@@ -179,6 +181,7 @@
     <ClInclude Include="src\Help.h" />
     <ClInclude Include="src\GL\Renderer\Renderer.h" />
     <ClInclude Include="src\GL\Texture\Texture.h" />
+    <ClInclude Include="src\Tests\Clear Color\TestClearColor.h" />
     <ClInclude Include="src\Vendor\glm\common.hpp" />
     <ClInclude Include="src\Vendor\glm\detail\compute_common.hpp" />
     <ClInclude Include="src\Vendor\glm\detail\compute_vector_relational.hpp" />
@@ -474,6 +477,8 @@
     <ClInclude Include="src\GL\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="src\GL\VertexArray\VertexArray.h" />
     <ClInclude Include="src\GL\VertexArray\VertexBufferLayout.h" />
+    <ClInclude Include="src\Tests\Test.h" />
+    <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shaders\first.frag" />

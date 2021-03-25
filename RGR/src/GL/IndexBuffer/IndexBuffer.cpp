@@ -1,11 +1,18 @@
 #include "IndexBuffer.h"
 
+GL::IndexBuffer::IndexBuffer()
+	: InitializationFlag(false)
+{
+}
+
 GL::IndexBuffer::IndexBuffer(const GLuint* data, GLuint count)
 	: m_Count(count)
 {
-	GLCall(glGenBuffers(1, &m_RendererID))
-	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID))
-	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLuint), data, GL_STATIC_DRAW))
+	GLCall(glGenBuffers(1, &m_RendererID));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLuint), data, GL_STATIC_DRAW));
+
+	InitializationFlag = true;
 }
 
 GL::IndexBuffer::~IndexBuffer()
@@ -21,4 +28,15 @@ void GL::IndexBuffer::Bind() const
 void GL::IndexBuffer::Unbind() const
 {
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0))
+}
+
+void GL::IndexBuffer::Init(const GLuint* data, GLuint count)
+{
+	this->m_Count = count;
+	
+	GLCall(glGenBuffers(1, &m_RendererID));
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLuint), data, GL_STATIC_DRAW));
+
+	InitializationFlag = true;
 }

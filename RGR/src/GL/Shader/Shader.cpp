@@ -1,6 +1,11 @@
 #include "Shader.h"
 
 
+GL::Shader::Shader()
+	: InitializationFlag(false)
+{
+}
+
 GL::Shader::Shader(const std::string& FragmentPath, const std::string& VertexPath)
 	: m_PathF(FragmentPath), m_PathV(VertexPath), m_RendererID(0)
 {
@@ -8,11 +13,26 @@ GL::Shader::Shader(const std::string& FragmentPath, const std::string& VertexPat
 	std::string FragmentSource = ParseShader(m_PathF);
 
 	m_RendererID = CreateShader(VertexSource, FragmentSource);
+
+	InitializationFlag = true;
 }
 
 GL::Shader::~Shader()
 {
 	GLCall(glDeleteProgram(m_RendererID));
+}
+
+void GL::Shader::Init(const std::string& FragmentPath, const std::string& VertexPath)
+{
+	this->m_PathF = FragmentPath;
+	this->m_PathV = VertexPath;
+	
+	std::string VertexSource = ParseShader(m_PathV);
+	std::string FragmentSource = ParseShader(m_PathF);
+
+	m_RendererID = CreateShader(VertexSource, FragmentSource);
+
+	InitializationFlag = true;
 }
 
 void GL::Shader::Bind() const

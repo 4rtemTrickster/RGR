@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <array>
 #include <unordered_map>
 
 #define ASSERT(x) if(!(x)) __debugbreak();

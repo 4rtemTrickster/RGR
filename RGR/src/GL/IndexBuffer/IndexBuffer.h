@@ -9,7 +9,10 @@ namespace GL
 		GLuint m_RendererID;
 		GLuint m_Count;
 
+		bool InitializationFlag;
+
 	public:
+		IndexBuffer();
 		IndexBuffer(const GLuint* data, GLuint count);
 		~IndexBuffer();
 
@@ -17,6 +20,9 @@ namespace GL
 		void Unbind() const;
 
 		inline GLuint GetCount() const { return m_Count; }
+
+		inline bool IsInit() const { return InitializationFlag; }
+		void Init(const GLuint* data, GLuint count);
 	};
 }
 

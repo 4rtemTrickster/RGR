@@ -16,13 +16,19 @@ namespace GL
 		//Bit's per pixel
 		GLint m_BPP;
 
+
+		bool InitializationFlag;
 	public:
 
+		Texture();
 		Texture(const std::string& path);
 		~Texture();
 
 		void Bind(GLuint slot = 0) const;
 		void Unbind() const;
+
+		inline bool IsInit() const { return InitializationFlag; }
+		void Init(const std::string& path);
 
 		inline GLint GetWidth() const { return m_Width; }
 		inline GLint GetHeight() const { return m_Height; }

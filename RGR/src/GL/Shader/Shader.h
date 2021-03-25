@@ -16,11 +16,17 @@ namespace GL
 		
 		// Caching for uniforms
 		std::unordered_map <std::string, GLint> m_UniformLocationCache;
+
+		bool InitializationFlag;
 		
 	public:
 
+		Shader();
 		Shader(const std::string& FragmentPath, const std::string& VertexPath);
 		~Shader();
+
+		inline bool IsInit() const { return InitializationFlag; }
+		void Init(const std::string& FragmentPath, const std::string& VertexPath);
 
 		void Bind() const;
 		void Unbind() const;
