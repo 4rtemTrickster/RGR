@@ -7,7 +7,7 @@
 class Renderer
 {
 public:
-	void Clear() const;
+	void Clear(glm::vec4 ClearColor, GLbitfield mask) const;
 	
 	void Draw(const GL::VertexArray& va, const GL::IndexBuffer& ib, const GL::Shader& shader) const;
 };

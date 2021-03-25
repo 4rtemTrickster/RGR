@@ -77,7 +77,6 @@ void Window::loop()
 		lastFrame = CurrentFrame;
 		
 	
-
 		tcube.OnUpdate(deltaTime);
 		tcube.OnRender();
 		

@@ -1,9 +1,9 @@
 ﻿#include "Renderer.h"
 
-void Renderer::Clear()const
+void Renderer::Clear(glm::vec4 ClearColor, GLbitfield mask)const
 {
-	GLCall(glClearColor(0.2f, 0.5f, 0.1f, 1.0f));
-	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+	GLCall(glClearColor(ClearColor.r, ClearColor.g, ClearColor.b, ClearColor.a));
+	GLCall(glClear(mask));
 }
 
 void Renderer::Draw(const GL::VertexArray& va, const GL::IndexBuffer& ib, const GL::Shader& shader) const

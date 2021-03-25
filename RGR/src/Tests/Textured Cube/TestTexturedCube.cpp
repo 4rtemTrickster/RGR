@@ -93,13 +93,13 @@ Test::TestTexturedCube::~TestTexturedCube()
 
 void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 {
-	view = _camera.GetViewMatrix();
-	shader.SetUniformMat4f("u_View", view);
+	this->view = this->_camera.GetViewMatrix();
+	this->shader.SetUniformMat4f("u_View", this->view);
 }
 
 void Test::TestTexturedCube::OnRender()
 {
-	renderer.Clear();
+	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderer.Draw(va, ib, shader);
 }
 
