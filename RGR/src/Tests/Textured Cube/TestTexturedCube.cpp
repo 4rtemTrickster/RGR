@@ -1,5 +1,6 @@
 #include "TestTexturedCube.h"
 
+
 Test::TestTexturedCube::TestTexturedCube(GLint InWindowWidth, GLint InWindowHeight, Camera& camera)
 	: model(1.0f), view(1.0f), proj(1.0f), Fov(45.0f),
 	shader("res/Shaders/first.frag", "res/Shaders/first.vert"),
@@ -105,5 +106,5 @@ void Test::TestTexturedCube::OnRender()
 
 void Test::TestTexturedCube::OnImGuiRender()
 {
-	ImGui::ShowTestWindow();
+	
 }

@@ -20,8 +20,8 @@ namespace Test
 		GLint WindowHeight;
 		GLfloat Fov;
 
-		
-		Renderer renderer;
+
+		GL::Renderer renderer;
 		GL::Shader shader;
 		GL::Texture texture;
 

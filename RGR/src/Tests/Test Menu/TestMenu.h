@@ -1,0 +1,41 @@
+#pragma once
+
+#include "../../Help.h"
+
+#include "../Test.h"
+
+#include "../../GL/Renderer/Renderer.h"
+
+namespace Test
+{
+	class TestMenu : public Test
+	{
+	public:
+
+		TestMenu(Test*& currentTestPointer);
+		~TestMenu() override;
+
+		void OnImGuiRender() override;
+		void OnRender() override;
+		void OnUpdate(GLfloat deltaTime) override;
+
+		template<typename T>
+		void RegisterTest(const std::string& name);
+
+	private:
+
+		GL::Renderer renderer;
+
+		Test*& CurrentTest;
+		std::vector<std::pair<std::string, std::function<Test* ()>>> m_Tests;
+	};
+
+	template <typename T>
+	void TestMenu::RegisterTest(const std::string& name)
+	{
+		//TODO: Logging
+		std::cout << "Registering the test " << name << std::endl;
+		
+		m_Tests.push_back(std::make_pair(name, []() {return new T; }));
+	}
+}

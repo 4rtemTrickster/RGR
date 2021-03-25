@@ -1,7 +1,10 @@
 ﻿#include "Window.h"
 
 #include "../Tests/Test.h"
+#include "../Tests/Test Menu/TestMenu.h"
 #include "../Tests/Textured Cube/TestTexturedCube.h"
+#include "../Tests/Clear Color/TestClearColor.h"
+
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -57,7 +60,7 @@ Window::~Window()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
-	
+
 	glfwDestroyWindow(m_Window);
 }
 
@@ -68,35 +71,52 @@ void Window::SetContextCurrent() const
 
 void Window::loop()
 {
-	Test::TestTexturedCube tcube(m_Width, m_Height, camera);
+	Test::Test* CurrentTest = nullptr;
+	Test::TestMenu* TestMenu = new Test::TestMenu(CurrentTest);
+	CurrentTest = TestMenu;
+
+	TestMenu->RegisterTest<Test::TestClearColor>("Clear Color");
+	//TestMenu->RegisterTest<Test::TestTexturedCube>("Textured Cube");
+
+	CurrentTest = new Test::TestTexturedCube(m_Width, m_Height, camera);
+
 
 	while (!glfwWindowShouldClose(m_Window))
 	{
 		GLfloat CurrentFrame = glfwGetTime();
 		deltaTime = CurrentFrame - lastFrame;
 		lastFrame = CurrentFrame;
-		
-	
-		tcube.OnUpdate(deltaTime);
-		tcube.OnRender();
-		
-		glfwPollEvents();
-	
 
-		if (pause)
+		if (CurrentTest)
 		{
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
+
+			CurrentTest->OnUpdate(deltaTime);
+			CurrentTest->OnRender();
+
+			ImGui::Begin("Test");
+
+			if (CurrentTest != TestMenu)
+			{
+				if (ImGui::Button("<-"))
+				{
+					delete CurrentTest;
+					CurrentTest = TestMenu;
+				}
+
+				if (!pause)
+				{
+					do_movement();
+				}
+			}
 			
-			tcube.OnImGuiRender();
-		}
-		else
-			do_movement();
 
 
-		if (pause)
-		{
+			CurrentTest->OnImGuiRender();
+			ImGui::End();
+
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
@@ -121,7 +141,7 @@ void Window::key_callback(GLFWwindow* window, int key, int scancode, int action,
 			pause = false;
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
-	
+
 	}
 	if (key >= 0 && key < 1024)
 	{
@@ -149,7 +169,7 @@ void Window::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 
 	if (!pause)
 		camera.ProcessMouseMovement(xoffset, yoffset);
-	
+
 }
 
 void Window::scroll_callback(GLFWwindow* window, double xoffset, double yoffset)

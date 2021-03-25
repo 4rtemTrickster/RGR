@@ -4,10 +4,13 @@
 #include "../GL/IndexBuffer/IndexBuffer.h"
 #include "../GL/Shader/Shader.h"
 
-class Renderer
+namespace GL
 {
-public:
-	void Clear(glm::vec4 ClearColor, GLbitfield mask) const;
+	class Renderer
+	{
+	public:
+		void Clear(glm::vec4 ClearColor, GLbitfield mask) const;
 	
-	void Draw(const GL::VertexArray& va, const GL::IndexBuffer& ib, const GL::Shader& shader) const;
-};
+		void Draw(const GL::VertexArray& va, const GL::IndexBuffer& ib, const GL::Shader& shader) const;
+	};
+}
