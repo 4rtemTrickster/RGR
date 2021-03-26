@@ -91,36 +91,38 @@ void Window::loop()
 
 		if (CurrentTest)
 		{
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
-
-			
 			CurrentTest->OnUpdate(deltaTime);
 			CurrentTest->OnRender();
-
-			ImGui::Begin("Test");
-			if (ImGui::Button("Close window"))
-				glfwSetWindowShouldClose(this->m_Window, true);
-
-			if (CurrentTest != TestMenu)
+			
+			if (pause)
 			{
-				if (ImGui::Button("<-"))
+				ImGui_ImplOpenGL3_NewFrame();
+				ImGui_ImplGlfw_NewFrame();
+				ImGui::NewFrame();
+
+
+				ImGui::Begin("Test");
+				if (ImGui::Button("Close window"))
+					glfwSetWindowShouldClose(this->m_Window, true);
+
+				if (CurrentTest != TestMenu)
 				{
-					delete CurrentTest;
-					CurrentTest = TestMenu;
+					if (ImGui::Button("<-"))
+					{
+						delete CurrentTest;
+						CurrentTest = TestMenu;
+					}
 				}
-				
-				if (!pause)
-					do_movement();
-				
+
+				CurrentTest->OnImGuiRender();
+
+				ImGui::End();
+
+				ImGui::Render();
+				ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 			}
-
-			CurrentTest->OnImGuiRender();
-			ImGui::End();
-
-			ImGui::Render();
-			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+			else
+				do_movement();
 		}
 
 		glfwPollEvents();
