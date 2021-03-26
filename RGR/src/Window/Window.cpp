@@ -4,6 +4,7 @@
 #include "../Tests/Test Menu/TestMenu.h"
 #include "../Tests/Textured Cube/TestTexturedCube.h"
 #include "../Tests/Clear Color/TestClearColor.h"
+#include "../Tests/Light/TestLight.h"
 
 
 #include "imgui/imgui.h"
@@ -22,7 +23,7 @@ static GLfloat lastX = 400;
 static GLfloat lastY = 300;
 
 static bool firstMouse = true;
-static bool pause = false;
+static bool pause = true;
 
 Window::Window(const std::string& title, int width, int height)
 	: m_Width(width), m_Height(height), deltaTime(0), lastFrame(0), m_Camera(camera)
@@ -38,7 +39,7 @@ Window::Window(const std::string& title, int width, int height)
 	glfwSetCursorPosCallback(m_Window, mouse_callback);
 	glfwSetScrollCallback(m_Window, scroll_callback);
 
-	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
@@ -77,6 +78,7 @@ void Window::loop()
 
 	TestMenu->RegisterTest<Test::TestClearColor>("Clear Color");
 	TestMenu->RegisterTest<Test::TestTexturedCube>("Textured Cube");
+	TestMenu->RegisterTest<Test::TestLight>("Light");
 
 
 
@@ -86,7 +88,6 @@ void Window::loop()
 		deltaTime = CurrentFrame - lastFrame;
 		lastFrame = CurrentFrame;
 
-		glfwPollEvents();
 
 		if (CurrentTest)
 		{
@@ -99,6 +100,8 @@ void Window::loop()
 			CurrentTest->OnRender();
 
 			ImGui::Begin("Test");
+			if (ImGui::Button("Close window"))
+				glfwSetWindowShouldClose(this->m_Window, true);
 
 			if (CurrentTest != TestMenu)
 			{
@@ -116,6 +119,7 @@ void Window::loop()
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		}
 
+		glfwPollEvents();
 		glfwSwapBuffers(m_Window);
 	}
 }

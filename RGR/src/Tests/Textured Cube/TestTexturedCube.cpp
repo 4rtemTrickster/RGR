@@ -7,7 +7,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	view(1.0f),
 	proj(1.0f),
 	Fov(45.0f),
-	shader("res/Shaders/first.frag", "res/Shaders/first.vert")
+	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
 	this->positions = {
 		//positions				//Texture coordinates

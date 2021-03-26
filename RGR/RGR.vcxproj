@@ -173,6 +173,7 @@
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp" />
     <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp" />
     <ClCompile Include="src\Tests\Test Menu\TestMenu.cpp" />
+    <ClCompile Include="src\Tests\Light\TestLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Camera\Camera.h" />
@@ -481,10 +482,15 @@
     <ClInclude Include="src\Tests\Test.h" />
     <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h" />
     <ClInclude Include="src\Tests\Test Menu\TestMenu.h" />
+    <ClInclude Include="src\Tests\Light\TestLight.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Shaders\first.frag" />
-    <None Include="res\Shaders\first.vert" />
+    <None Include="res\Shaders\Box\Box.frag" />
+    <None Include="res\Shaders\Box\Box.vert" />
+    <None Include="res\Shaders\TexturedBox\TexturedBox.frag" />
+    <None Include="res\Shaders\TexturedBox\TexturedBox.vert" />
+    <None Include="res\Shaders\Light\Light.frag" />
+    <None Include="res\Shaders\Light\Light.vert" />
     <None Include="src\Vendor\glm\detail\func_common.inl" />
     <None Include="src\Vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\Vendor\glm\detail\func_exponential.inl" />

@@ -35,6 +35,7 @@ namespace GL
 		void SetUniform1i(const std::string& name, GLint value);
 		void SetUniform1f(const std::string& name, GLfloat value);
 		void SetUniform4f(const std::string& name, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+		void SetUniform3f(const std::string& name, GLfloat v0, GLfloat v1, GLfloat v2);
 		void SetUniformMat4f(const std::string& name, const glm::mat4& matrix);
 		
 
