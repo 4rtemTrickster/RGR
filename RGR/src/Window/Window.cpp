@@ -17,10 +17,10 @@
 
 //TODO: FIX this sh**
 // Camera
-static Camera camera;
+static Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 static bool keys[1024];
-static GLfloat lastX = 400;
-static GLfloat lastY = 300;
+static GLfloat lastX = 1280.0f / 2;
+static GLfloat lastY = 720.0f / 2;
 
 static bool firstMouse = true;
 static bool pause = true;
@@ -95,8 +95,8 @@ void Window::loop()
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			if (!pause)
-				CurrentTest->OnUpdate(deltaTime);
+			
+			CurrentTest->OnUpdate(deltaTime);
 			CurrentTest->OnRender();
 
 			ImGui::Begin("Test");
@@ -110,6 +110,10 @@ void Window::loop()
 					delete CurrentTest;
 					CurrentTest = TestMenu;
 				}
+				
+				if (!pause)
+					do_movement();
+				
 			}
 
 			CurrentTest->OnImGuiRender();

@@ -77,7 +77,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 
 	this->ib.Init(this->indices.data(), this->indices.size());
 
-	this->proj = glm::perspective(glm::radians(this->Fov), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
+	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
 	this->shader.Bind();
 	this->shader.SetUniformMat4f("u_Projection", proj);

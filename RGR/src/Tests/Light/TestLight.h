@@ -30,6 +30,9 @@ namespace Test
 		glm::mat4 proj;
 		GLfloat Fov;
 
+		glm::vec3 LightPos;
+		glm::vec3 LightScale;
+
 	public:
 
 		TestLight(Window* InWnd);
