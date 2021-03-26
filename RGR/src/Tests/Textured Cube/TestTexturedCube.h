@@ -16,11 +16,6 @@ namespace Test
 	class TestTexturedCube : public Test
 	{
 	private:
-		GLint WindowWidth;
-		GLint WindowHeight;
-		GLfloat Fov;
-
-
 		GL::Renderer renderer;
 		GL::Shader shader;
 		GL::Texture texture;
@@ -33,14 +28,13 @@ namespace Test
 		GL::IndexBuffer ib;
 		GL::VertexBufferLayout layout;
 
-		Camera& _camera;
-
 		glm::mat4 model;
 		glm::mat4 view;
 		glm::mat4 proj;
+		GLfloat Fov;
 
 	public:
-		TestTexturedCube(GLint InWindowWidth, GLint InWindowHeight, Camera& camera);
+		TestTexturedCube(Window* InWnd);
 		~TestTexturedCube() override;
 
 

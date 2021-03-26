@@ -1,7 +1,7 @@
 ﻿#include "TestClearColor.h"
 
-Test::TestClearColor::TestClearColor()
-	: m_ClearColor{0.2f, 0.3f, 0.8f, 1.0f}
+Test::TestClearColor::TestClearColor(Window* InWnd)
+	: m_ClearColor{0.2f, 0.3f, 0.8f, 1.0f}, Test(InWnd)
 {
 }
 

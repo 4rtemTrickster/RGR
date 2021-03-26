@@ -1,11 +1,13 @@
 #include "TestTexturedCube.h"
 
 
-Test::TestTexturedCube::TestTexturedCube(GLint InWindowWidth, GLint InWindowHeight, Camera& camera)
-	: model(1.0f), view(1.0f), proj(1.0f), Fov(45.0f),
-	shader("res/Shaders/first.frag", "res/Shaders/first.vert"),
-	_camera(camera),
-	WindowWidth(InWindowWidth), WindowHeight(InWindowHeight)
+Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
+	: Test(InWnd),
+	model(1.0f),
+	view(1.0f),
+	proj(1.0f),
+	Fov(45.0f),
+	shader("res/Shaders/first.frag", "res/Shaders/first.vert")
 {
 	this->positions = {
 		//positions				//Texture coordinates
@@ -75,7 +77,7 @@ Test::TestTexturedCube::TestTexturedCube(GLint InWindowWidth, GLint InWindowHeig
 
 	this->ib.Init(this->indices.data(), this->indices.size());
 
-	this->proj = glm::perspective(glm::radians(this->Fov), static_cast<float>(this->WindowWidth) / static_cast<float>(this->WindowHeight), 0.1f, 100.0f);
+	this->proj = glm::perspective(glm::radians(this->Fov), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
 	this->shader.Bind();
 	this->shader.SetUniformMat4f("u_Projection", proj);
@@ -94,8 +96,10 @@ Test::TestTexturedCube::~TestTexturedCube()
 
 void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 {
-	this->view = this->_camera.GetViewMatrix();
+	this->view = this->_wnd->m_Camera.GetViewMatrix();
 	this->shader.SetUniformMat4f("u_View", this->view);
+
+	this->_wnd->do_movement();
 }
 
 void Test::TestTexturedCube::OnRender()

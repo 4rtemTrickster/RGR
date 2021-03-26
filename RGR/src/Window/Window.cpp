@@ -25,7 +25,7 @@ static bool firstMouse = true;
 static bool pause = false;
 
 Window::Window(const std::string& title, int width, int height)
-	: m_Width(width), m_Height(height), deltaTime(0), lastFrame(0)
+	: m_Width(width), m_Height(height), deltaTime(0), lastFrame(0), m_Camera(camera)
 {
 	m_Window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
@@ -72,13 +72,12 @@ void Window::SetContextCurrent() const
 void Window::loop()
 {
 	Test::Test* CurrentTest = nullptr;
-	Test::TestMenu* TestMenu = new Test::TestMenu(CurrentTest);
+	Test::TestMenu* TestMenu = new Test::TestMenu(CurrentTest, this);
 	CurrentTest = TestMenu;
 
 	TestMenu->RegisterTest<Test::TestClearColor>("Clear Color");
-	//TestMenu->RegisterTest<Test::TestTexturedCube>("Textured Cube");
+	TestMenu->RegisterTest<Test::TestTexturedCube>("Textured Cube");
 
-	CurrentTest = new Test::TestTexturedCube(m_Width, m_Height, camera);
 
 
 	while (!glfwWindowShouldClose(m_Window))
@@ -87,13 +86,16 @@ void Window::loop()
 		deltaTime = CurrentFrame - lastFrame;
 		lastFrame = CurrentFrame;
 
+		glfwPollEvents();
+
 		if (CurrentTest)
 		{
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			CurrentTest->OnUpdate(deltaTime);
+			if (!pause)
+				CurrentTest->OnUpdate(deltaTime);
 			CurrentTest->OnRender();
 
 			ImGui::Begin("Test");
@@ -105,14 +107,7 @@ void Window::loop()
 					delete CurrentTest;
 					CurrentTest = TestMenu;
 				}
-
-				if (!pause)
-				{
-					do_movement();
-				}
 			}
-			
-
 
 			CurrentTest->OnImGuiRender();
 			ImGui::End();
@@ -122,7 +117,6 @@ void Window::loop()
 		}
 
 		glfwSwapBuffers(m_Window);
-		glfwPollEvents();
 	}
 }
 

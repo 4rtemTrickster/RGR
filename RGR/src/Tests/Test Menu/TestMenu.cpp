@@ -2,8 +2,8 @@
 
 #include "imgui/imgui.h"
 
-Test::TestMenu::TestMenu(Test*& currentTestPointer)
-	: CurrentTest(currentTestPointer)
+Test::TestMenu::TestMenu(Test*& currentTestPointer, Window* InWnd)
+	: CurrentTest(currentTestPointer), Test(InWnd)
 {
 }
 

@@ -11,7 +11,7 @@ namespace Test
 	{
 	public:
 
-		TestClearColor();
+		TestClearColor(Window* InWnd);
 		~TestClearColor() override;
 
 		void OnUpdate(GLfloat deltaTime) override;

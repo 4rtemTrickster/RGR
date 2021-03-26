@@ -2,9 +2,10 @@
 
 #include "../../Help.h"
 
+#include "../../GL/Renderer/Renderer.h"
+
 #include "../Test.h"
 
-#include "../../GL/Renderer/Renderer.h"
 
 namespace Test
 {
@@ -12,7 +13,7 @@ namespace Test
 	{
 	public:
 
-		TestMenu(Test*& currentTestPointer);
+		TestMenu(Test*& currentTestPointer, Window* InWnd);
 		~TestMenu() override;
 
 		void OnImGuiRender() override;
@@ -36,6 +37,6 @@ namespace Test
 		//TODO: Logging
 		std::cout << "Registering the test " << name << std::endl;
 		
-		m_Tests.push_back(std::make_pair(name, []() {return new T; }));
+		m_Tests.push_back(std::make_pair(name, [this]() {return new T(this->_wnd); }));
 	}
 }

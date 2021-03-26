@@ -16,6 +16,9 @@ private:
 	GLfloat lastFrame;  	// Time of last frame
 
 public:
+
+	Camera& m_Camera;
+	void do_movement() const;
 	
 	Window(const std::string& title, int width, int height);
 	~Window();
@@ -23,6 +26,9 @@ public:
 	void SetContextCurrent() const;
 
 	void loop();
+
+	inline int GetWindowWidth() const { return m_Width; }
+	inline int GetWindowHeight() const { return m_Height; }
 
 private:
 	// Is called whenever a key is pressed/released via GLFW
@@ -32,5 +38,5 @@ private:
 
 	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 	
-	void do_movement() const;
+	
 };
