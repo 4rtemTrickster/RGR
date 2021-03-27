@@ -629,6 +629,10 @@
     <None Include="src\Vendor\glm\gtx\wrap.inl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\Textures\Rock Texture\Base_Color.png" />
+    <Image Include="res\Textures\Rock Texture\Height.png" />
+    <Image Include="res\Textures\Rock Texture\Normal_OpenGL.png" />
+    <Image Include="res\Textures\Rock Texture\Roughness.png" />
     <Image Include="res\Textures\Texture1.png" />
     <Image Include="res\Textures\Texture2.png" />
   </ItemGroup>

@@ -84,7 +84,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	this->shader.SetUniformMat4f("u_View", view);
 	this->shader.SetUniformMat4f("u_Model", model);
 
-	this->texture.Init("res/Textures/Texture2.png");
+	this->texture.Init("res/Textures/Rock Texture/Base_color.png");
 
 	this->texture.Bind();
 	this->shader.SetUniform1i("u_Texture", 0);

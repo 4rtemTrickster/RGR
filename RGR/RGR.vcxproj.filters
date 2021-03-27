@@ -1431,5 +1431,17 @@
     <Image Include="res\Textures\Texture2.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="res\Textures\Rock Texture\Base_Color.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Height.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Normal_OpenGL.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Roughness.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
