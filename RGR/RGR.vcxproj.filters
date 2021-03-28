@@ -1443,5 +1443,8 @@
     <Image Include="res\Textures\Rock Texture\Roughness.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="res\Textures\Rock Texture\Metallic.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
