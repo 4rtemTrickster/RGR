@@ -4,29 +4,45 @@ in vec3 FragPos;
 in vec3 Normal;
 in vec3 LightPos;
 
-layout(location = 0) out vec4 color;
+layout(location = 0) out vec4 FragColor;
 
-uniform vec3 u_ObjectColor;
-uniform vec3 u_LightColor;
+struct Material
+{
+	vec3 Ambient;
+	vec3 Diffuse;
+	vec3 Specular;
+	float Shininess;
+};
+
+struct Light
+{
+	vec3 Possition;
+
+	vec3 Ambient;
+	vec3 Diffuse;
+	vec3 Specular;
+};
+
+uniform Material u_Material;
+uniform Light u_Light;
+
 
 void main()
 {
 	// Ambient
-	float AmbientStrength = 0.1f;
-	vec3 Ambient = AmbientStrength * u_LightColor;
+	vec3 Ambient = u_Light.Ambient * u_Material.Ambient;
 
 	// Diffuse
 	vec3 Normalized = normalize(Normal);
 	vec3 LightDir = normalize(LightPos - FragPos);
 	float Dif = max(dot(Normalized, LightDir), 0.0);
-	vec3 Diffuse = Dif * u_LightColor;
+	vec3 Diffuse = u_Light.Diffuse * (Dif * u_Material.Diffuse);
 
 	//Specular
-	float SpecularStrength = 0.5f;
 	vec3 ViewDir = normalize(-FragPos);
 	vec3 ReflectDir = reflect(-LightDir, Normalized);
-	float Spec = pow(max(dot(ViewDir, ReflectDir), 0.0), 32);
-	vec3 Specular = SpecularStrength * Spec * u_LightColor;
+	float Spec = pow(max(dot(ViewDir, ReflectDir), 0.0), u_Material.Shininess);
+	vec3 Specular = u_Light.Specular * (Spec * u_Material.Specular);
 
-	color = vec4((Ambient + Diffuse + Specular) * u_ObjectColor, 1.0f);
+	FragColor = vec4(Ambient + Diffuse + Specular, 1.0f);
 }

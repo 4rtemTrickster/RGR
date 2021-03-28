@@ -11,6 +11,23 @@ namespace Test
 	class TestLight : public Test
 	{
 	private:
+		struct Material
+		{
+			glm::vec3	Ambient;
+			glm::vec3	Diffuse;
+			glm::vec3	Specular;
+			GLfloat		Shininess;
+		};
+
+		struct Light
+		{
+			glm::vec3 Possition;
+
+			glm::vec3 Ambient;
+			glm::vec3 Diffuse;
+			glm::vec3 Specular;
+		};
+		
 		GL::Renderer renderer;
 		GL::Shader LightShader;
 		GL::Shader BoxShader;
@@ -30,8 +47,10 @@ namespace Test
 		glm::mat4 proj;
 		GLfloat Fov;
 
-		glm::vec3 LightPos;
 		glm::vec3 LightScale;
+
+		Material mat;
+		Light light;
 
 	public:
 
