@@ -2,9 +2,10 @@
 
 #include "../Test.h"
 
-#include "../../GL/Renderer/Renderer.h"
-#include "../../GL/Shader/Shader.h"
+#include "../GL/Renderer/Renderer.h"
+#include "../GL/Shader/Shader.h"
 #include "../GL/VertexArray/VertexBufferLayout.h"
+#include "../GL/Texture/Texture.h"
 
 namespace Test
 {
@@ -31,6 +32,9 @@ namespace Test
 		GL::Renderer renderer;
 		GL::Shader LightShader;
 		GL::Shader BoxShader;
+
+		GL::Texture BoxDiffuseTexture;
+		GL::Texture BoxSpecularTexture;
 
 		std::vector<GLfloat> positions;
 		std::vector<GLuint> indices;

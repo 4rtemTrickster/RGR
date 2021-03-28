@@ -40,15 +40,18 @@ GL::Texture::~Texture()
 	GLCall(glDeleteTextures(1, &m_RendererID));
 }
 
-void GL::Texture::Bind(GLuint slot /* = 0*/) const
+void GL::Texture::Bind(GLuint slot /* = 0*/) 
 {
 	GLCall(glActiveTexture(GL_TEXTURE0 + slot));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_RendererID));
+
+	this->m_Slot = slot;
 }
 
-void GL::Texture::Unbind() const
+void GL::Texture::Unbind()
 {
 	GLCall(glBindTexture(GL_TEXTURE_2D, 0));
+	this->m_Slot = UINT_MAX;
 }
 
 void GL::Texture::Init(const std::string& path)

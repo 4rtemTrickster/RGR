@@ -6,6 +6,8 @@ Test::TestLight::TestLight(Window* InWnd)
 	: Test(InWnd),
 	LightShader("res/Shaders/Light/Light.frag", "res/Shaders/Light/Light.vert"),
 	BoxShader("res/Shaders/Box/Box.frag", "res/Shaders/Box/Box.vert"),
+	BoxDiffuseTexture("res/Textures/Box Texture/Diffuse.png"),
+	BoxSpecularTexture("res/Textures/Box Texture/Specular.png"),
 	LightModel(1.0f),
 	BoxModel(1.0f),
 	view(1.0f),
@@ -26,36 +28,36 @@ Test::TestLight::TestLight(Window* InWnd)
 		//-0.5f, -0.5f, -0.5f, // 7
 
 	// Back
-	-0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f, // 0
-	 0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f, // 1
-	 0.5f,  0.5f, -0.5f,	 0.0f,  0.0f, -1.0f, // 2
-	-0.5f,  0.5f, -0.5f,	 0.0f,  0.0f, -1.0f, // 3
+	-0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,	0.0f, 0.0f,	// 0
+	 0.5f, -0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,	1.0f, 0.0f,	// 1
+	 0.5f,  0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,	1.0f, 1.0f,	// 2
+	-0.5f,  0.5f, -0.5f,	 0.0f,  0.0f, -1.0f,	0.0f, 1.0f,	// 3
 
 	// Front
-	-0.5f, -0.5f,  0.5f,	 0.0f,  0.0f,  1.0f, // 4
-	 0.5f, -0.5f,  0.5f,	 0.0f,  0.0f,  1.0f, // 5
-	 0.5f,  0.5f,  0.5f,	 0.0f,  0.0f,  1.0f, // 6
-	-0.5f,  0.5f,  0.5f,	 0.0f,  0.0f,  1.0f, // 7
+	-0.5f, -0.5f,  0.5f,	 0.0f,  0.0f,  1.0f,	0.0f, 0.0f,	 // 4
+	 0.5f, -0.5f,  0.5f,	 0.0f,  0.0f,  1.0f,	1.0f, 0.0f,	 // 5
+	 0.5f,  0.5f,  0.5f,	 0.0f,  0.0f,  1.0f,	1.0f, 1.0f,	 // 6
+	-0.5f,  0.5f,  0.5f,	 0.0f,  0.0f,  1.0f,	0.0f, 1.0f,	 // 7
 	// Left
-	-0.5f,  0.5f,  0.5f,	-1.0f,  0.0f,  0.0f, // 8
-	-0.5f,  0.5f, -0.5f,	-1.0f,  0.0f,  0.0f, // 9
-	-0.5f, -0.5f, -0.5f,	-1.0f,  0.0f,  0.0f, // 10
-	-0.5f, -0.5f,  0.5f,	-1.0f,  0.0f,  0.0f, // 11
+	-0.5f,  0.5f,  0.5f,	-1.0f,  0.0f,  0.0f,	0.0f, 0.0f,	// 8
+	-0.5f,  0.5f, -0.5f,	-1.0f,  0.0f,  0.0f,	1.0f, 0.0f,	// 9
+	-0.5f, -0.5f, -0.5f,	-1.0f,  0.0f,  0.0f,	1.0f, 1.0f,	// 10
+	-0.5f, -0.5f,  0.5f,	-1.0f,  0.0f,  0.0f,	0.0f, 1.0f,	// 11
 	// Right
-	 0.5f,  0.5f,  0.5f,	 1.0f,  0.0f,  0.0f, // 12
-	 0.5f,  0.5f, -0.5f,	 1.0f,  0.0f,  0.0f, // 13
-	 0.5f, -0.5f, -0.5f,	 1.0f,  0.0f,  0.0f, // 14
-	 0.5f, -0.5f,  0.5f,	 1.0f,  0.0f,  0.0f, // 15
+	 0.5f,  0.5f,  0.5f,	 1.0f,  0.0f,  0.0f,	0.0f, 0.0f,	// 12
+	 0.5f,  0.5f, -0.5f,	 1.0f,  0.0f,  0.0f,	1.0f, 0.0f,	// 13
+	 0.5f, -0.5f, -0.5f,	 1.0f,  0.0f,  0.0f,	1.0f, 1.0f,	// 14
+	 0.5f, -0.5f,  0.5f,	 1.0f,  0.0f,  0.0f,	0.0f, 1.0f,	// 15
 	// Bottom
-	-0.5f, -0.5f, -0.5f,	 0.0f, -1.0f,  0.0f, // 16
-	 0.5f, -0.5f, -0.5f,	 0.0f, -1.0f,  0.0f, // 17
-	 0.5f, -0.5f,  0.5f,	 0.0f, -1.0f,  0.0f, // 18
-	-0.5f, -0.5f,  0.5f,	 0.0f, -1.0f,  0.0f, // 19
+	-0.5f, -0.5f, -0.5f,	 0.0f, -1.0f,  0.0f,	0.0f, 1.0f,	// 16
+	 0.5f, -0.5f, -0.5f,	 0.0f, -1.0f,  0.0f,	0.0f, 0.0f,	// 17
+	 0.5f, -0.5f,  0.5f,	 0.0f, -1.0f,  0.0f,	1.0f, 0.0f,	// 18
+	-0.5f, -0.5f,  0.5f,	 0.0f, -1.0f,  0.0f,	1.0f, 1.0f,	// 19
 	// Top
-	-0.5f,  0.5f, -0.5f,	 0.0f,  1.0f,  0.0f, // 20
-	 0.5f,  0.5f, -0.5f,	 0.0f,  1.0f,  0.0f, // 21
-	 0.5f,  0.5f,  0.5f,	 0.0f,  1.0f,  0.0f, // 22
-	-0.5f,  0.5f,  0.5f,	 0.0f,  1.0f,  0.0f, // 23
+	-0.5f,  0.5f, -0.5f,	 0.0f,  1.0f,  0.0f,	0.0f, 0.0f,	// 20
+	 0.5f,  0.5f, -0.5f,	 0.0f,  1.0f,  0.0f,	1.0f, 0.0f,	// 21
+	 0.5f,  0.5f,  0.5f,	 0.0f,  1.0f,  0.0f,	1.0f, 1.0f,	// 22
+	-0.5f,  0.5f,  0.5f,	 0.0f,  1.0f,  0.0f,	0.0f, 1.0f,	// 23
 	};
 
 	indices =
@@ -101,6 +103,7 @@ Test::TestLight::TestLight(Window* InWnd)
 
 	layout.Push<GLfloat>(3);
 	layout.Push<GLfloat>(3);
+	layout.Push<GLfloat>(2);
 
 	LightVa.AddBuffer(vb, layout);
 	BoxVa.AddBuffer(vb, layout);
@@ -109,9 +112,6 @@ Test::TestLight::TestLight(Window* InWnd)
 
 	proj = glm::perspective(glm::radians(_wnd->m_Camera.Zoom), static_cast<float>(_wnd->GetWindowWidth()) / static_cast<float>(_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
-	mat.Ambient = glm::vec3(1.0f, 0.5f, 0.31f);
-	mat.Diffuse = glm::vec3(1.0f, 0.5f, 0.31f);
-	mat.Specular = glm::vec3(0.5f);
 	mat.Shininess = 32.0f;
 
 	light.Ambient = glm::vec3(0.2f);
@@ -132,13 +132,13 @@ Test::TestLight::TestLight(Window* InWnd)
 	BoxShader.SetUniform3f("u_Light.Ambient", light.Ambient.r, light.Ambient.g, light.Ambient.b);
 	BoxShader.SetUniform3f("u_Light.Diffuse", light.Diffuse.r, light.Diffuse.g, light.Diffuse.b);
 	BoxShader.SetUniform3f("u_Light.Specular", light.Specular.r, light.Specular.g, light.Specular.b);
-
-	BoxShader.SetUniform3f("u_Material.Ambient", mat.Ambient.r, mat.Ambient.g, mat.Ambient.b);
 	
 
 	BoxShader.SetUniform3f("u_LightPos", light.Possition.x, light.Possition.y, light.Possition.z);
-	BoxShader.SetUniform3f("u_Material.Diffuse", mat.Diffuse.r, mat.Diffuse.g, mat.Diffuse.b);
-	BoxShader.SetUniform3f("u_Material.Specular", mat.Specular.r, mat.Specular.g, mat.Specular.b);
+	BoxDiffuseTexture.Bind();
+	BoxSpecularTexture.Bind(1);
+	BoxShader.SetUniform1i("u_Material.Diffuse", BoxDiffuseTexture.GetSlot());
+	BoxShader.SetUniform1i("u_Material.Specular", BoxSpecularTexture.GetSlot());
 	BoxShader.SetUniform1f("u_Material.Shininess", mat.Shininess);
 }
 
@@ -179,16 +179,7 @@ void Test::TestLight::OnImGuiRender()
 	if (ImGui::SliderFloat("Scale", &LightScale.x, 0.001f, 2.f))
 		LightScale.y = LightScale.z = LightScale.x;
 
-	ImGui::Text("Box material options options:");
-
-	if (ImGui::SliderFloat3("Ambient", &mat.Ambient.x, 0.0f, 1.0f))
-		BoxShader.SetUniform3f("u_Material.Ambient", mat.Ambient.r, mat.Ambient.g, mat.Ambient.b);
-
-	if (ImGui::SliderFloat3("Diffuse", &mat.Diffuse.x, 0.0f, 1.0f))
-		BoxShader.SetUniform3f("u_Material.Diffuse", mat.Diffuse.r, mat.Diffuse.g, mat.Diffuse.b);
-	
-	if (ImGui::SliderFloat3("Specular", &mat.Specular.x, 0.0f, 1.0f))
-		BoxShader.SetUniform3f("u_Material.Specular", mat.Specular.r, mat.Specular.g, mat.Specular.b);
+	ImGui::Text("Box material options:");
 	
 	if (ImGui::SliderFloat("Shininess", &mat.Shininess, 0.0f, 256.0f))
 		BoxShader.SetUniform1f("u_Material.Shininess", mat.Shininess);

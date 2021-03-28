@@ -1431,19 +1431,25 @@
     <Image Include="res\Textures\Texture2.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="res\Textures\Rock Texture\Base_Color.png">
+    <Image Include="res\Textures\Rock Texture\Diffuse.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Glossiness.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Specular.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Normal.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="res\Textures\Rock Texture\Height.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="res\Textures\Rock Texture\Normal_OpenGL.png">
+    <Image Include="res\Textures\Box Texture\Diffuse.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="res\Textures\Rock Texture\Roughness.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="res\Textures\Rock Texture\Metallic.png">
+    <Image Include="res\Textures\Box Texture\Specular.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
