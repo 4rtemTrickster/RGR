@@ -1431,25 +1431,25 @@
     <Image Include="res\Textures\Texture2.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="res\Textures\Rock Texture\Diffuse.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="res\Textures\Rock Texture\Glossiness.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="res\Textures\Rock Texture\Specular.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="res\Textures\Rock Texture\Normal.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
-    <Image Include="res\Textures\Rock Texture\Height.png">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
     <Image Include="res\Textures\Box Texture\Diffuse.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="res\Textures\Box Texture\Specular.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Rock_Diffuse.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Rock_Glossiness.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Rock_Height.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Rock_Normal.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\Rock_Specular.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>
