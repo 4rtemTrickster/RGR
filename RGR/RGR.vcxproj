@@ -631,11 +631,6 @@
   <ItemGroup>
     <Image Include="res\Textures\Box Texture\Diffuse.png" />
     <Image Include="res\Textures\Box Texture\Specular.png" />
-    <Image Include="res\Textures\Rock Texture\Diffuse.png" />
-    <Image Include="res\Textures\Rock Texture\Glossiness.png" />
-    <Image Include="res\Textures\Rock Texture\Height.png" />
-    <Image Include="res\Textures\Rock Texture\Normal.png" />
-    <Image Include="res\Textures\Rock Texture\Specular.png" />
     <Image Include="res\Textures\Texture1.png" />
     <Image Include="res\Textures\Texture2.png" />
   </ItemGroup>
