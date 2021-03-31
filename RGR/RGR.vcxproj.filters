@@ -90,7 +90,7 @@
     <ClCompile Include="src\InGame objects\Mesh\Mesh.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="src\InGame objects\Mesh\Voxel\Voxel.cpp">
+    <ClCompile Include="src\InGame objects\Chunk\Voxel\Voxel.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1022,7 +1022,7 @@
     <ClInclude Include="src\InGame objects\Mesh\Mesh.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="src\InGame objects\Mesh\Voxel\Voxel.h">
+    <ClInclude Include="src\InGame objects\Chunk\Voxel\Voxel.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -176,7 +176,7 @@
     <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp" />
     <ClCompile Include="src\Tests\Test Menu\TestMenu.cpp" />
     <ClCompile Include="src\Tests\Light\TestLight.cpp" />
-    <ClCompile Include="src\InGame objects\Mesh\Voxel\Voxel.cpp" />
+    <ClCompile Include="src\InGame objects\Chunk\Voxel\Voxel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\InGame objects\Mesh\Mesh.h" />
@@ -488,7 +488,7 @@
     <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h" />
     <ClInclude Include="src\Tests\Test Menu\TestMenu.h" />
     <ClInclude Include="src\Tests\Light\TestLight.h" />
-    <ClInclude Include="src\InGame objects\Mesh\Voxel\Voxel.h" />
+    <ClInclude Include="src\InGame objects\Chunk\Voxel\Voxel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shaders\Box\Box.frag" />

@@ -25,15 +25,16 @@ struct Vertex
 class Mesh
 {
 private:
-	GL::VertexArray vao;
-	GL::VertexBuffer vbo;
-	GL::VertexBufferLayout layout;
-	GL::IndexBuffer ibo;
-	
-public:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
 	//std::vector<Texture> textures;
+
+	GL::VertexBuffer vbo;
+	GL::VertexBufferLayout layout;
+	
+public:
+	GL::VertexArray vao;
+	GL::IndexBuffer ibo;
 
 	Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices/*, std::vector<Texture> textures*/);
 };

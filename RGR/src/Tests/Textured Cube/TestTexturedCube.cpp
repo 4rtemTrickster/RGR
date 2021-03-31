@@ -1,5 +1,7 @@
 #include "TestTexturedCube.h"
 
+#include "../../InGame objects/Mesh/Mesh.h"
+#include "../../InGame objects/Chunk/Chunk.h"
 
 Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	: Test(InWnd),
@@ -8,73 +10,77 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
-	this->positions = {
-		//positions				//Texture coordinates
-		//Front
-		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//0				
-		1.0f, 0.0f, 1.0f,	1.0f, 0.0f, //1				
-		1.0f, 1.0f, 1.0f,	1.0f, 1.0f, //2				
-		0.0f, 1.0f, 1.0f,	0.0f, 1.0f, //3				
+	//this->positions = {
+	//	//positions				//Texture coordinates
+	//	//Front
+	//	0.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//0				
+	//	1.0f, 0.0f, 1.0f,	1.0f, 0.0f, //1				
+	//	1.0f, 1.0f, 1.0f,	1.0f, 1.0f, //2				
+	//	0.0f, 1.0f, 1.0f,	0.0f, 1.0f, //3				
 
-		//Right
-		1.0f, 0.0f, 1.0f,	0.0f, 0.0f, //4
-		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //5
-		1.0f, 1.0f, 0.0f,	1.0f, 1.0f, //6
-		1.0f, 1.0f, 1.0f,	0.0f, 1.0f, //7
+	//	//Right
+	//	1.0f, 0.0f, 1.0f,	0.0f, 0.0f, //4
+	//	1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //5
+	//	1.0f, 1.0f, 0.0f,	1.0f, 1.0f, //6
+	//	1.0f, 1.0f, 1.0f,	0.0f, 1.0f, //7
 
-		//Back
-		1.0f, 0.0f, 0.0f,	0.0f, 0.0f, //8
-		0.0f, 0.0f, 0.0f,	1.0f, 0.0f,	//9
-		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//10
-		1.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//11
+	//	//Back
+	//	1.0f, 0.0f, 0.0f,	0.0f, 0.0f, //8
+	//	0.0f, 0.0f, 0.0f,	1.0f, 0.0f,	//9
+	//	0.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//10
+	//	1.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//11
 
-		//Left
-		0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//12
-		0.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//13
-		0.0f, 1.0f, 1.0f,	1.0f, 1.0f, //14
-		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//15
+	//	//Left
+	//	0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//12
+	//	0.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//13
+	//	0.0f, 1.0f, 1.0f,	1.0f, 1.0f, //14
+	//	0.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//15
 
-		//Bottom
-		0.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//16
-		0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//17
-		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //18
-		1.0f, 0.0f, 1.0f,	1.0f, 1.0f, //19
+	//	//Bottom
+	//	0.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//16
+	//	0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//17
+	//	1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //18
+	//	1.0f, 0.0f, 1.0f,	1.0f, 1.0f, //19
 
-		//Top
-		0.0f,  1.0f, 1.0f,	0.0f, 0.0f, //20
-		1.0f,  1.0f, 1.0f,	1.0f, 0.0f, //21
-		1.0f,  1.0f, 0.0f,	1.0f, 1.0f, //22
-		0.0f,  1.0f, 0.0f,	0.0f, 1.0f,	//23
-	};
+	//	//Top
+	//	0.0f,  1.0f, 1.0f,	0.0f, 0.0f, //20
+	//	1.0f,  1.0f, 1.0f,	1.0f, 0.0f, //21
+	//	1.0f,  1.0f, 0.0f,	1.0f, 1.0f, //22
+	//	0.0f,  1.0f, 0.0f,	0.0f, 1.0f,	//23
+	//};
 
-	this->indices = {
-		0,	1,	2,
-		2,	3,	0,
+	//this->indices = {
+	//	0,	1,	2,
+	//	2,	3,	0,
 
-		4,	5,	6,
-		6,	7,	4,
+	//	4,	5,	6,
+	//	6,	7,	4,
 
-		8,	9,	10,
-		10,	11,	8,
+	//	8,	9,	10,
+	//	10,	11,	8,
 
-		12, 13, 14,
-		14, 15, 12,
+	//	12, 13, 14,
+	//	14, 15, 12,
 
-		16, 17, 18,
-		18, 19, 16,
+	//	16, 17, 18,
+	//	18, 19, 16,
 
-		20, 21, 22,
-		22, 23, 20
-	};
+	//	20, 21, 22,
+	//	22, 23, 20
+	//};
 
-	this->vb.Init(this->positions.data(), sizeof(GLfloat) * this->positions.size());
+	//this->vb.Init(this->positions.data(), sizeof(GLfloat) * this->positions.size());
 
-	this->layout.Push<GLfloat>(3);
-	this->layout.Push<GLfloat>(2);
+	//this->layout.Push<GLfloat>(3);
+	//this->layout.Push<GLfloat>(2);
 
-	this->va.AddBuffer(vb, this->layout);
+	//this->va.AddBuffer(vb, this->layout);
 
-	this->ib.Init(this->indices.data(), this->indices.size());
+	//this->ib.Init(this->indices.data(), this->indices.size());
+
+	Chunk ch1;
+
+	mh = ch1.GenerateMesh();
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
@@ -97,7 +103,7 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 {
 	this->view = this->_wnd->m_Camera.GetViewMatrix();
 	this->shader.SetUniformMat4f("u_View", this->view);
-	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
+	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 1000.0f);
 	this->shader.SetUniformMat4f("u_Projection", proj);
 
 	this->_wnd->do_movement();
@@ -106,7 +112,7 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 void Test::TestTexturedCube::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderer.Draw(va, ib, shader);
+	renderer.Draw(mh->vao, mh->ibo, shader);
 }
 
 void Test::TestTexturedCube::OnImGuiRender()

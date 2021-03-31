@@ -11,6 +11,8 @@
 
 #include "../Vendor/imgui/imgui.h"
 
+class Mesh;
+
 namespace Test
 {
 	class TestTexturedCube : public Test
@@ -31,6 +33,8 @@ namespace Test
 		glm::mat4 model;
 		glm::mat4 view;
 		glm::mat4 proj;
+
+		Mesh* mh;
 
 	public:
 		TestTexturedCube(Window* InWnd);
