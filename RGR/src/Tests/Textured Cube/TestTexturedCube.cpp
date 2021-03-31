@@ -6,46 +6,45 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	model(1.0f),
 	view(1.0f),
 	proj(1.0f),
-	Fov(45.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
 	this->positions = {
 		//positions				//Texture coordinates
 		//Front
-		-0.5f, -0.5f,  0.5f,	0.0f, 0.0f,	//0				
-		 0.5f, -0.5f,  0.5f,	1.0f, 0.0f, //1				
-		 0.5f,  0.5f,  0.5f,	1.0f, 1.0f, //2				
-		-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, //3				
+		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,	//0				
+		1.0f, 0.0f, 1.0f,	1.0f, 0.0f, //1				
+		1.0f, 1.0f, 1.0f,	1.0f, 1.0f, //2				
+		0.0f, 1.0f, 1.0f,	0.0f, 1.0f, //3				
 
 		//Right
-		 0.5f, -0.5f,  0.5f,	0.0f, 0.0f, //4
-		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f, //5
-		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //6
-		 0.5f,  0.5f,  0.5f,	0.0f, 1.0f, //7
+		1.0f, 0.0f, 1.0f,	0.0f, 0.0f, //4
+		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //5
+		1.0f, 1.0f, 0.0f,	1.0f, 1.0f, //6
+		1.0f, 1.0f, 1.0f,	0.0f, 1.0f, //7
 
 		//Back
-		 0.5f, -0.5f, -0.5f,	0.0f, 0.0f, //8
-		-0.5f, -0.5f, -0.5f,	1.0f, 0.0f,	//9
-		-0.5f,  0.5f, -0.5f,	1.0f, 1.0f,	//10
-		 0.5f,  0.5f, -0.5f,	0.0f, 1.0f,	//11
+		1.0f, 0.0f, 0.0f,	0.0f, 0.0f, //8
+		0.0f, 0.0f, 0.0f,	1.0f, 0.0f,	//9
+		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,	//10
+		1.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//11
 
 		//Left
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,	//12
-		-0.5f, -0.5f,  0.5f,	1.0f, 0.0f,	//13
-		-0.5f,  0.5f,  0.5f,	1.0f, 1.0f, //14
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,	//15
+		0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//12
+		0.0f, 0.0f, 1.0f,	1.0f, 0.0f,	//13
+		0.0f, 1.0f, 1.0f,	1.0f, 1.0f, //14
+		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,	//15
 
 		//Bottom
-		-0.5f, -0.5f,  0.5f,	0.0f, 1.0f,	//16
-		-0.5f, -0.5f, -0.5f,	0.0f, 0.0f,	//17
-		 0.5f, -0.5f, -0.5f,	1.0f, 0.0f, //18
-		 0.5f, -0.5f,  0.5f,	1.0f, 1.0f, //19
+		0.0f, 0.0f, 1.0f,	0.0f, 1.0f,	//16
+		0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	//17
+		1.0f, 0.0f, 0.0f,	1.0f, 0.0f, //18
+		1.0f, 0.0f, 1.0f,	1.0f, 1.0f, //19
 
 		//Top
-		-0.5f,  0.5f,  0.5f,	0.0f, 0.0f, //20
-		 0.5f,  0.5f,  0.5f,	1.0f, 0.0f, //21
-		 0.5f,  0.5f, -0.5f,	1.0f, 1.0f, //22
-		-0.5f,  0.5f, -0.5f,	0.0f, 1.0f,	//23
+		0.0f,  1.0f, 1.0f,	0.0f, 0.0f, //20
+		1.0f,  1.0f, 1.0f,	1.0f, 0.0f, //21
+		1.0f,  1.0f, 0.0f,	1.0f, 1.0f, //22
+		0.0f,  1.0f, 0.0f,	0.0f, 1.0f,	//23
 	};
 
 	this->indices = {
@@ -84,7 +83,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	this->shader.SetUniformMat4f("u_View", view);
 	this->shader.SetUniformMat4f("u_Model", model);
 
-	this->texture.Init("res/Textures/Rock Texture/Base_color.png");
+	this->texture.Init("res/Textures/Box Texture/Diffuse.png");
 
 	this->texture.Bind();
 	this->shader.SetUniform1i("u_Texture", 0);
@@ -98,6 +97,8 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 {
 	this->view = this->_wnd->m_Camera.GetViewMatrix();
 	this->shader.SetUniformMat4f("u_View", this->view);
+	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
+	this->shader.SetUniformMat4f("u_Projection", proj);
 
 	this->_wnd->do_movement();
 }

@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\InGame objects\Mesh\Mesh.cpp" />
+    <ClCompile Include="src\InGame objects\Chunk\Chunk.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\GL\Shader\Shader.cpp" />
     <ClCompile Include="src\GL\IndexBuffer\IndexBuffer.cpp" />
@@ -174,8 +176,11 @@
     <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp" />
     <ClCompile Include="src\Tests\Test Menu\TestMenu.cpp" />
     <ClCompile Include="src\Tests\Light\TestLight.cpp" />
+    <ClCompile Include="src\InGame objects\Mesh\Voxel\Voxel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\InGame objects\Mesh\Mesh.h" />
+    <ClInclude Include="src\InGame objects\Chunk\Chunk.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\GL\Shader\Shader.h" />
     <ClInclude Include="src\GL\IndexBuffer\IndexBuffer.h" />
@@ -483,6 +488,7 @@
     <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h" />
     <ClInclude Include="src\Tests\Test Menu\TestMenu.h" />
     <ClInclude Include="src\Tests\Light\TestLight.h" />
+    <ClInclude Include="src\InGame objects\Mesh\Voxel\Voxel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Shaders\Box\Box.frag" />
@@ -631,6 +637,9 @@
   <ItemGroup>
     <Image Include="res\Textures\Box Texture\Diffuse.png" />
     <Image Include="res\Textures\Box Texture\Specular.png" />
+    <Image Include="res\Textures\Rock Texture\pix\Bottom.png" />
+    <Image Include="res\Textures\Rock Texture\pix\Side.png" />
+    <Image Include="res\Textures\Rock Texture\pix\Top.png" />
     <Image Include="res\Textures\Rock Texture\Rock_Diffuse.png" />
     <Image Include="res\Textures\Rock Texture\Rock_Glossiness.png" />
     <Image Include="res\Textures\Rock Texture\Rock_Height.png" />

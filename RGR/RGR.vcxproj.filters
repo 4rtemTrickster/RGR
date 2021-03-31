@@ -84,6 +84,15 @@
     <ClCompile Include="src\Tests\Light\TestLight.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="src\InGame objects\Chunk\Chunk.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InGame objects\Mesh\Mesh.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InGame objects\Mesh\Voxel\Voxel.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLFW\GLFW.h">
@@ -1007,6 +1016,15 @@
     <ClInclude Include="src\Tests\Light\TestLight.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="src\InGame objects\Chunk\Chunk.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InGame objects\Mesh\Mesh.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InGame objects\Mesh\Voxel\Voxel.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Vendor\glm\detail\func_common.inl">
@@ -1450,6 +1468,15 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="res\Textures\Rock Texture\Rock_Specular.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\pix\Bottom.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\pix\Side.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="res\Textures\Rock Texture\pix\Top.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

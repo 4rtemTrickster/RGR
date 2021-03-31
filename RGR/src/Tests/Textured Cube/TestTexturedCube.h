@@ -31,7 +31,6 @@ namespace Test
 		glm::mat4 model;
 		glm::mat4 view;
 		glm::mat4 proj;
-		GLfloat Fov;
 
 	public:
 		TestTexturedCube(Window* InWnd);
