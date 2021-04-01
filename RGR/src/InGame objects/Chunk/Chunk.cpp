@@ -36,7 +36,7 @@
 Chunk::Chunk()
 {
 	this->voxels = new Voxel[Chunk_Volume];
-
+	
 	for (size_t y = 0; y < Chunk_Height; y++)
 	{
 		for (size_t z = 0; z < Chunk_Length; z++)
@@ -51,12 +51,15 @@ Chunk::Chunk()
 
 Chunk::~Chunk()
 {
-	delete[] this->voxels;
+	
 }
 
 Mesh* Chunk::GenerateMesh()
 {	
 	size_t index = 0;
+
+	vertices.reserve(Chunk_Volume*6);
+	indices.reserve(Chunk_Volume*6);
 
 	for (size_t y = 0; y < Chunk_Height; y++)
 	{
@@ -64,125 +67,128 @@ Mesh* Chunk::GenerateMesh()
 		{
 			for (size_t x = 0; x < Chunk_Width; x++)
 			{
-				if (!VOXEL(x, y, z).id)
+				if (!(VOXEL(x, y, z).id))
 					continue;
 
 				// Front to def camera position
 				if (!IS_TO_DRAW(x, y, z + 1))
 				{
 					indices.push_back(index++);
-					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f,	0.0f, 0.0f,  1.0f,	0.0f, 0.0f);
-																		 
-					indices.push_back(index++);							 
-					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	0.0f, 0.0f,  1.0f,	1.0f, 0.0f);
-																		 
-					indices.push_back(index);							 
-					indices.push_back(index++);							 
-					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	0.0f, 0.0f,  1.0f,	1.0f, 1.0f);
-																		 
-					indices.push_back(index++);							 
-					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f,	0.0f, 0.0f,  1.0f,	0.0f, 1.0f);
-					
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 0.0f);
+
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 0.0f);
+
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	0.0f, 0.0f, 1.0f,	1.0f, 1.0f);
+
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f,	0.0f, 0.0f, 1.0f,	0.0f, 1.0f);
+
 					indices.push_back(index - 4);
 				}
 
-				//// Back
-				//if (!IS_TO_DRAW(x, y, z - 1))
-				//{
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f);
-				//	
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	1.0f, 0.0f);
+				// Back
+				if (!IS_TO_DRAW(x, y, z - 1))
+				{
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 0.0f);
 
-				//	indices.push_back(index);
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,  1.0f, 1.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	1.0f, 0.0f);
 
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 1.0f);
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	1.0f, 1.0f);
 
-				//	indices.push_back(index - 4);
-				//}
-				//
-				//// Right
-				//if(!IS_TO_DRAW(x + 1,y,z))
-				//{
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	0.0f, 0.0f, -1.0f,	0.0f, 1.0f);
 
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 0.0f);
+					indices.push_back(index - 4);
+				}
 
-				//	indices.push_back(index);
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f);
+				// Right
+				if (!IS_TO_DRAW(x + 1, y, z))
+				{
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 0.0f);
 
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 1.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 0.0f);
 
-				//	indices.push_back(index - 4);
-				//}
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	1.0f, 0.0f, 0.0f,	1.0f, 1.0f);
 
-				//// Left
-				//if (!IS_TO_DRAW(x - 1, y, z))
-				//{
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f, -1.0f, 0.0f, 0.0f,	0.0f, 0.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	1.0f, 0.0f, 0.0f,	0.0f, 1.0f);
 
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f, -1.0f, 0.0f, 0.0f,	1.0f, 0.0f);
+					indices.push_back(index - 4);
+				}
 
-				//	indices.push_back(index);
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f, -1.0f, 0.0f, 0.0f,	1.0f, 1.0f);
+				// Left
+				if (!IS_TO_DRAW(x - 1, y, z))
+				{
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
 
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f, -1.0f, 0.0f, 0.0f,	0.0f, 1.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-				//	indices.push_back(index - 4);
-				//}
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f);
 
-				//// Top
-				//if (!IS_TO_DRAW(x , y + 1, z))
-				//{
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f);
-				//														
-				//	indices.push_back(index++);							
-				//	PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f);
-				//														
-				//	indices.push_back(index);							
-				//	indices.push_back(index++);							
-				//	PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 1.0f);
-				//														
-				//	indices.push_back(index++);							
-				//	PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
-				//	indices.push_back(index - 4);
-				//}
+					indices.push_back(index - 4);
+				}
 
-				//// Bottom
-				//if (!IS_TO_DRAW(x, y - 1, z))
-				//{
-				//	indices.push_back(index++);
-				//	PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f);
-				//													
-				//	indices.push_back(index++);						
-				//	PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f);
-				//												 
-				//	indices.push_back(index);					 
-				//	indices.push_back(index++);					 
-				//	PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 1.0f);
-				//												
-				//	indices.push_back(index++);					
-				//	PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f);
+				// Top
+				if (!IS_TO_DRAW(x, y + 1, z))
+				{
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 0.0f);
 
-				//	indices.push_back(index - 4);
-				//}
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z + 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f);
+
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y + 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 1.0f);
+
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y + 0.5f, z - 0.5f,	0.0f, 1.0f, 0.0f,	0.0f, 1.0f);
+
+					indices.push_back(index - 4);
+				}
+
+				// Bottom
+				if (!IS_TO_DRAW(x, y - 1, z))
+				{
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z - 0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 0.0f);
+
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z - 0.5f,	0.0f, -1.0f, 0.0f,	1.0f, 0.0f);
+
+					indices.push_back(index);
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x + 0.5f, y - 0.5f, z + 0.5f,	0.0f, -1.0f, 0.0f,	1.0f, 1.0f);
+
+					indices.push_back(index++);
+					PUSH_BACK_VERTEX(x - 0.5f, y - 0.5f, z + 0.5f,	0.0f, -1.0f, 0.0f,	0.0f, 1.0f);
+
+					indices.push_back(index - 4);
+				}
 			}
 		}
 	}
+
+	vertices.shrink_to_fit();
+	indices.shrink_to_fit();
 
 	return new Mesh(vertices, indices);
 }

@@ -13,5 +13,5 @@ Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
 
 	vao.AddBuffer(vbo, layout);
 
-	ibo.Init(this->indices.data(), indices.size());
+	ibo.Init(this->indices.data(), this->indices.size());
 }
