@@ -10,7 +10,7 @@ public:
 	//Chunk params
 	static const GLuint Chunk_Width = 16;
 	static const GLuint Chunk_Length = 16;
-	static const GLuint Chunk_Height = 256;
+	static const GLuint Chunk_Height = 128;
 	static const GLuint Chunk_Volume = Chunk_Width * Chunk_Length * Chunk_Height;
 
 	Chunk();

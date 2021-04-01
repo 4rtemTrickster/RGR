@@ -43,7 +43,7 @@ Chunk::Chunk()
 		{
 			for (size_t x = 0; x < Chunk_Width; x++)
 			{
-				VOXEL(x, y, z).id = 1;
+				VOXEL(x, y, z).id = y <= (std::sin(x * 0.6f) * 0.5f + 0.5f) * 10;
 			}
 		}
 	}
