@@ -149,16 +149,21 @@ Test::TestLight::~TestLight()
 void Test::TestLight::OnUpdate(GLfloat deltaTime)
 {
 	view = _wnd->m_Camera.GetViewMatrix();
-
+	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 1000.0f);
+	
 	BoxShader.SetUniformMat4f("u_View", view);
+	BoxShader.SetUniformMat4f("u_Projection", proj);
 	//BoxShader.SetUniform3f("u_ViewPos", this->_wnd->m_Camera.Position.x, this->_wnd->m_Camera.Position.y, this->_wnd->m_Camera.Position.z);
 
 
 	LightShader.Bind();
 	LightShader.SetUniformMat4f("u_View", view);
+	LightShader.SetUniformMat4f("u_Projection", proj);
+	
 	LightModel = glm::translate(glm::mat4(1.0f), light.Possition);
 	LightModel = glm::scale(LightModel, LightScale);
 	LightShader.SetUniformMat4f("u_Model", LightModel);
+	
 }
 
 void Test::TestLight::OnRender()

@@ -48,6 +48,7 @@ Window::Window(const std::string& title, int width, int height)
 	glViewport(0, 0, width, height);
 
 	GLCall(glEnable(GL_CULL_FACE));
+	GLCall(glFrontFace(GL_CW));
 	GLCall(glEnable(GL_DEPTH_TEST));
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
