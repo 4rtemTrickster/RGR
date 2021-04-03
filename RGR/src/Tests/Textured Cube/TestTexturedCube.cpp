@@ -1,7 +1,8 @@
 #include "TestTexturedCube.h"
 
 #include "../../InGame objects/Mesh/Mesh.h"
-#include "../../InGame objects/Chunk/Chunk.h"
+#include "../../InGame objects/World/World.h"
+#include "../../InGame objects/World/Chunk/Chunk.h"
 
 Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	: Test(InWnd),
@@ -10,9 +11,13 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
-	Chunk ch1;
 
-	mh = ch1.GenerateMesh();
+	World world;
+
+	for (size_t i = 0; i < World::World_Length; i++)
+		for(size_t  j = 0; j < World::World_Width; j ++)
+			mh.push_back(world.Chunks[i][j].GenerateMesh());
+		
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
@@ -44,7 +49,10 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 void Test::TestTexturedCube::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderer.Draw(mh->vao, mh->ibo, shader);
+	for (auto* var : mh)
+	{
+		renderer.Draw(var->vao, var->ibo, shader);
+	}
 }
 
 void Test::TestTexturedCube::OnImGuiRender()
