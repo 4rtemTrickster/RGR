@@ -22,10 +22,6 @@ public:
 
 	~Chunk();
 
-	inline bool IsInit() const { return bIsInit;}
-
-	void Init(GLint WorldX, GLint WorldZ);
-
 	Mesh* GenerateMesh();
 
 private:

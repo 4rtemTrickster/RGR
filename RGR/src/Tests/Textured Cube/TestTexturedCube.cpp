@@ -14,9 +14,10 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 
 	World world;
 
-	for (size_t i = 0; i < World::World_Length; i++)
-		for(size_t  j = 0; j < World::World_Width; j ++)
-			mh.push_back(world.Chunks[i][j].GenerateMesh());
+	mh.reserve(World::World_Volume);
+	
+	for (size_t i = 0; i < World::World_Volume; i++)
+		mh.push_back(world.Chunks[i]->GenerateMesh());
 		
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
@@ -49,10 +50,9 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 void Test::TestTexturedCube::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	for (auto* var : mh)
-	{
 		renderer.Draw(var->vao, var->ibo, shader);
-	}
 }
 
 void Test::TestTexturedCube::OnImGuiRender()

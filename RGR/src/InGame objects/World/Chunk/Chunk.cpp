@@ -82,8 +82,7 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
         {
             for (size_t x = 0; x < Chunk_Width; x++)
             {
-                VOXEL(x, y, z).id = y <= (std::sin(x + WorldX * 0.1f) * 0.5f + 0.5f) * 50 && y <= (
-                    std::sin(z + WorldZ * 0.1f) * 0.5f + 0.5f) * 50;
+                VOXEL(x, y, z).id = y <= (std::sin((x + WorldX) * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin((z + WorldZ) * 0.1f) * 0.5f + 0.5f) * 50;
             }
         }
     }
@@ -92,31 +91,6 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
 Chunk::~Chunk()
 {
     delete[] this->voxels;
-}
-
-void Chunk::Init(GLint WorldX, GLint WorldZ)
-{
-    if (!bIsInit)
-    {
-        bIsInit = true;
-
-        this->WorldX = WorldX;
-        this->WorldZ = WorldZ;
-
-        this->voxels = new Voxel[Chunk_Volume];
-
-        for (size_t y = 0; y < Chunk_Height; y++)
-        {
-            for (size_t z = 0; z < Chunk_Length; z++)
-            {
-                for (size_t x = 0; x < Chunk_Width; x++)
-                {
-                    VOXEL(x, y, z).id = y <= (std::sin((x + WorldX) * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin(
-                        (z + WorldZ) * 0.1f) * 0.5f + 0.5f) * 50;
-                }
-            }
-        }
-    }
 }
 
 Mesh* Chunk::GenerateMesh()

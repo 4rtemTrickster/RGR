@@ -9,7 +9,7 @@ public:
 	static const GLuint World_Length = 16;
 	static const GLuint World_Volume = World_Width * World_Length;
 
-	Chunk Chunks[World_Width][World_Length];
+	std::vector<Chunk*> Chunks;
 
 	World();
 	~World();

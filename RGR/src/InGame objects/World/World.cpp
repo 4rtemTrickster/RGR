@@ -2,13 +2,13 @@
 
 World::World()
 {
-	for (size_t i = 0; i < World_Length; i++)
-	{
-		for (size_t j = 0; j < World_Width; j++)
-		{
-			Chunks[i][j].Init(i * Chunk::Chunk_Width, j * Chunk::Chunk_Length);
-		}
-	}
+    Chunks.reserve(World_Volume);
+
+    for (int z = 0; z < World_Length; ++z)
+        for (int x = 0; x < World_Width; ++x)
+            Chunks.push_back(new Chunk(x * World_Width, z * World_Length));
+
+    Chunks.shrink_to_fit();
 }
 
 World::~World()
