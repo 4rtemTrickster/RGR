@@ -44,7 +44,7 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
 		{
 			for (size_t x = 0; x < Chunk_Width; x++)
 			{
-				VOXEL(x, y, z).id = y <= (std::sin(x + WorldX * 0.6f) * 0.5f + 0.5f) * 10 && y <= (std::sin(z + WorldZ * 0.6f) * 0.5f + 0.5f) * 10;
+				VOXEL(x, y, z).id = y <= (std::sin(x + WorldX * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin(z + WorldZ * 0.1f) * 0.5f + 0.5f) * 50;
 			}
 		}
 	}
@@ -72,7 +72,7 @@ void Chunk::Init(GLint WorldX, GLint WorldZ)
 			{
 				for (size_t x = 0; x < Chunk_Width; x++)
 				{
-					VOXEL(x, y, z).id = y <= (std::sin((x + WorldX) * 0.6f) * 0.5f + 0.5f) * 10 && y <= (std::sin(z + WorldZ * 0.6f) * 0.5f + 0.5f) * 10;;
+					VOXEL(x, y, z).id = y <= (std::sin((x + WorldX) * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin((z + WorldZ) * 0.1f) * 0.5f + 0.5f) * 50;
 				}
 			}
 		}
