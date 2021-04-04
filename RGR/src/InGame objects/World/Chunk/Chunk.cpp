@@ -100,30 +100,37 @@ Mesh* Chunk::GenerateMesh()
     vertices.reserve(Chunk_Volume * 6);
     indices.reserve(Chunk_Volume * 6);
 
+    const GLfloat uvsize = 1.0f / 16.0f;
+
     for (size_t y = 0; y < Chunk_Height; y++)
     {
         for (size_t z = 0; z < Chunk_Length; z++)
         {
             for (size_t x = 0; x < Chunk_Width; x++)
             {
-                if (!(VOXEL(x, y, z).id))
+                GLuint id = VOXEL(x, y, z).id;
+                
+                if (!id)
                     continue;
+
+                float u = (id % 16) * uvsize;
+                float v = 1-((1 + id / 16) * uvsize);
 
                 // Front to def camera position
                 if (!IS_TO_DRAW(x, y, z + 1))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, u*2, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, u*2+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, u*2 + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 0.0f, 1.0f, u*2,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
@@ -132,17 +139,17 @@ Mesh* Chunk::GenerateMesh()
                 if (!IS_TO_DRAW(x, y, z - 1))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, u*2, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, u*2+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, u*2 + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 0.0f, -1.0f, u*2,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
@@ -151,17 +158,17 @@ Mesh* Chunk::GenerateMesh()
                 if (!IS_TO_DRAW(x + 1, y, z))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, u*2, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, u*2+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, u*2 + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 1.0f, 0.0f, 0.0f, u*2,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
@@ -170,17 +177,17 @@ Mesh* Chunk::GenerateMesh()
                 if (!IS_TO_DRAW(x - 1, y, z))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, u*2, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, u*2+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, u*2 + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, -1.0f, 0.0f, 0.0f, u*2,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
@@ -189,17 +196,17 @@ Mesh* Chunk::GenerateMesh()
                 if (!IS_TO_DRAW(x, y + 1, z))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, u, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z + 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, u+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, u + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y + 0.5f, z - 0.5f + WorldZ, 0.0f, 1.0f, 0.0f, u,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
@@ -208,17 +215,17 @@ Mesh* Chunk::GenerateMesh()
                 if (!IS_TO_DRAW(x, y - 1, z))
                 {
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, u*3, v);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z - 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, u*3+uvsize, v);
 
                     indices.push_back(index);
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x + 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, u*3 + uvsize, v + uvsize);
 
                     indices.push_back(index++);
-                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f);
+                    PUSH_BACK_VERTEX(x - 0.5f + WorldX, y - 0.5f, z + 0.5f + WorldZ, 0.0f, -1.0f, 0.0f, u*3,v + uvsize);
 
                     indices.push_back(index - 4);
                 }
