@@ -4,7 +4,7 @@
 #include "glm/glm.hpp"
 
 /**
- * \brief Ñhecks for the presence of a voxel in the chunk
+ * \brief Check's for the presence of a voxel in the chunk
  */
 #define IS_IN_CHUNK(X,Y,Z) (((X) >= 0 && (X) < Chunk_Width) && ((Y) >= 0 && (Y) < Chunk_Height) && ((Z) >= 0 && (Z) < Chunk_Length))
 
@@ -44,7 +44,7 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
 		{
 			for (size_t x = 0; x < Chunk_Width; x++)
 			{
-				VOXEL(x, y, z).id = y <= (std::sin(WorldX * 0.6f) * 0.5f + 0.5f) * 10;
+				VOXEL(x, y, z).id = y <= (std::sin(x + WorldX * 0.6f) * 0.5f + 0.5f) * 10 && y <= (std::sin(z + WorldZ * 0.6f) * 0.5f + 0.5f) * 10;
 			}
 		}
 	}
@@ -57,20 +57,23 @@ Chunk::~Chunk()
 
 void Chunk::Init(GLint WorldX, GLint WorldZ)
 {
-	initializeflag = true;
-
-	this->WorldX = WorldX;
-	this->WorldZ = WorldZ;
-	
-	this->voxels = new Voxel[Chunk_Volume];
-
-	for (size_t y = 0; y < Chunk_Height; y++)
+	if (!initializeflag)
 	{
-		for (size_t z = 0; z < Chunk_Length; z++)
+		initializeflag = true;
+
+		this->WorldX = WorldX;
+		this->WorldZ = WorldZ;
+	
+		this->voxels = new Voxel[Chunk_Volume];
+
+		for (size_t y = 0; y < Chunk_Height; y++)
 		{
-			for (size_t x = 0; x < Chunk_Width; x++)
+			for (size_t z = 0; z < Chunk_Length; z++)
 			{
-				VOXEL(x, y, z).id = 1; /*y <= (std::sin((x + WorldX) * 0.6f) * 0.5f + 0.5f) * 10*/;
+				for (size_t x = 0; x < Chunk_Width; x++)
+				{
+					VOXEL(x, y, z).id = y <= (std::sin((x + WorldX) * 0.6f) * 0.5f + 0.5f) * 10 && y <= (std::sin(z + WorldZ * 0.6f) * 0.5f + 0.5f) * 10;;
+				}
 			}
 		}
 	}
