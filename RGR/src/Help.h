@@ -3,11 +3,14 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "Log/Log.h"
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
 #include <sstream>
 #include <functional>
+#include <memory>
 #include <string>
 #include <vector>
 #include <array>

@@ -2,12 +2,14 @@
 
 #include "GLFW/GLFW.h"
 #include "Window/Window.h"
+#include "Log/Log.h"
 
 int main(void)
 {
 	try
 	{
 		GLFW glfw;
+		Log::Init();
 
 		Window window("RGR", 1280, 720);
 		window.SetContextCurrent();
