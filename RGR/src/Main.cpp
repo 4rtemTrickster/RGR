@@ -2,7 +2,7 @@
 
 #include "GLFW/GLFW.h"
 #include "Window/Window.h"
-#include "Log/Log.h"
+#include "Logger/Log.h"
 
 int main(void)
 {

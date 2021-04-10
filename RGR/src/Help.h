@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Log/Log.h"
+#include "Logger/Log.h"
 
 #include <iostream>
 #include <cmath>
