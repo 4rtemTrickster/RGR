@@ -15,9 +15,13 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	World world;
 
 	mh.reserve(World::World_Volume);
+
+	GLdouble start_time = glfwGetTime();
 	
 	for (size_t i = 0; i < World::World_Volume; i++)
 		mh.push_back(world.Chunks[i]->GenerateMesh());
+
+	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 		
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
