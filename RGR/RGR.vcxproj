@@ -160,7 +160,7 @@
     <ClCompile Include="src\InGame objects\World\Chunk\Chunk.cpp" />
     <ClCompile Include="src\InGame objects\World\Chunk\Voxel\Voxel.cpp" />
     <ClCompile Include="src\InGame objects\World\World.cpp" />
-    <ClCompile Include="src\Log\Log.cpp" />
+    <ClCompile Include="src\Logger\Log.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\GL\Renderer\Renderer.cpp" />
     <ClCompile Include="src\GL\Texture\Texture.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="src\InGame objects\World\Chunk\Chunk.h" />
     <ClInclude Include="src\InGame objects\World\Chunk\Voxel\Voxel.h" />
     <ClInclude Include="src\InGame objects\World\World.h" />
-    <ClInclude Include="src\Log\Log.h" />
+    <ClInclude Include="src\Logger\Log.h" />
     <ClInclude Include="src\Tests\Clear Color\TestClearColor.h" />
     <ClInclude Include="src\Vendor\glm\common.hpp" />
     <ClInclude Include="src\Vendor\glm\detail\compute_common.hpp" />
