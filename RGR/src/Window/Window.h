@@ -12,8 +12,8 @@ private:
 	int m_Height;
 
 	// Deltatime
-	GLfloat deltaTime;	// Time between current frame and last frame
-	GLfloat lastFrame;  	// Time of last frame
+	GLdouble deltaTime;	// Time between current frame and last frame
+	GLdouble lastFrame;  	// Time of last frame
 
 public:
 

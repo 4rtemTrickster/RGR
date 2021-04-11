@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../Help.h"
+#include "Help.h"
 
-#include "../../GL/Renderer/Renderer.h"
+#include "GL/Renderer/Renderer.h"
 
 #include "../Test.h"
 
@@ -34,8 +34,7 @@ namespace Test
 	template <typename T>
 	void TestMenu::RegisterTest(const std::string& name)
 	{
-		//TODO: Logging
-		std::cout << "Registering the test " << name << std::endl;
+		LOG_INFO("Registering the test {0}", name);
 		
 		m_Tests.push_back(std::make_pair(name, [this]() {return new T(this->_wnd); }));
 	}

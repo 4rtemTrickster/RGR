@@ -76,13 +76,9 @@ std::string GL::Shader::ParseShader(const std::string& path)
 	std::string line;
 
 	if (!fs.is_open())
-		throw std::runtime_error("ERROR:: Can not open shader file!");
-
-	//while (std::getline(fs, line))
-	//	line += "\n";
-	//
-	//fs.close();
-
+		throw std::runtime_error("Can not open shader file! Path:" + path);
+	
+	LOG_TRACE("Shader file is open. Path:" + path);
 
 	std::stringstream ss;
 	ss << fs.rdbuf();
@@ -107,11 +103,12 @@ GLuint GL::Shader::CompileShader(GLuint type, const std::string& source)
 		GLCall(glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length));
 		char* message = (char*)alloca(length * sizeof(char));
 		GLCall(glGetShaderInfoLog(id, length, &length, message));
-		std::cout << "ERROR::Failed to compile " << (type == GL_VERTEX_SHADER ? "vertex" : "fragment") << "shader" << std::endl;
-		std::cout << message << std::endl;
+		LOG_ERROR("Failed to compile {0} shader \n {1}", (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"), message);
 		glDeleteShader(id);
 		return 0;
 	}
+	else
+		LOG_TRACE("{0} shader is compiled", (type == GL_VERTEX_SHADER ? "Vertex" : "Fragment"));
 
 	return id;
 }
@@ -141,7 +138,7 @@ GLint GL::Shader::GetUniformLocation(const std::string& name)
 	GLCall(GLint location = glGetUniformLocation(m_RendererID, name.c_str()));
 
 	if (location == -1)
-		std::cout << "WARNING: uniform'" << name << "' doesn't exist!" << std::endl;
+		LOG_WARN("uniform: {0} doesn't exist!", name);
 
 	m_UniformLocationCache[name] = location;
 

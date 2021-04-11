@@ -31,6 +31,8 @@ vertices.push_back({glm::vec3(X,Y,Z), glm::vec3(NX,NY,NZ), glm::vec2(TX,TY)});
 
 World::World()
 {
+    GLdouble start_time = glfwGetTime();
+    
     Chunks.reserve(World_Volume);
 
     for (int z = 0; z < World_Length; ++z)
@@ -42,6 +44,8 @@ World::World()
     }
     
     Chunks.shrink_to_fit();
+
+    LOG_INFO("World generated in {0} seconds", glfwGetTime() - start_time);
 }
 
 Mesh* World::GenerateMesh()
