@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../Help.h"
+#include "Help.h"
 
-#include "../../GL/Renderer/Renderer.h"
+#include "GL/Renderer/Renderer.h"
 
 #include "../Test.h"
 

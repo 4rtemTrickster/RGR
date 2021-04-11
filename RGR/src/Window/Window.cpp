@@ -33,6 +33,7 @@ Window::Window(const std::string& title, int width, int height)
 	if (!m_Window)
 		throw std::runtime_error("Could not initialize window");
 
+
 	SetContextCurrent();
 
 	glfwSetKeyCallback(m_Window, key_callback);
