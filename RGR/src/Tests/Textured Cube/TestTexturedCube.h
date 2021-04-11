@@ -34,7 +34,7 @@ namespace Test
 		glm::mat4 view;
 		glm::mat4 proj;
 
-		std::vector<Mesh*> mh;
+		Mesh* mh;
 
 	public:
 		TestTexturedCube(Window* InWnd);

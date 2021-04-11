@@ -18,6 +18,8 @@ public:
 
     ~Chunk();
 
+    Voxel* GetWoxels() { return voxels;}
+
     GLint GetWorldX() const { return WorldX;}
     GLint GetWorldZ() const { return WorldZ;}
 

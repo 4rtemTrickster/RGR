@@ -15,7 +15,7 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
         {
             for (size_t x = 0; x < Chunk_Width; x++)
             {
-                this->voxels[(y * Chunk_Length + z) * Chunk_Width + x].id = 1;/*y <= (std::sin((x + WorldX) * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin((z + WorldZ) * 0.1f) * 0.5f + 0.5f) * 50;*/
+                this->voxels[(y * Chunk_Length + z) * Chunk_Width + x].id = y <= (std::sin((x + WorldX) * 0.1f) * 0.5f + 0.5f) * 50 && y <= (std::sin((z + WorldZ) * 0.1f) * 0.5f + 0.5f) * 50;
                 //VOXEL(x,y,z).id = glm::perlin(glm::vec3((x+WorldX) * 0.0125f, y * 0.0125f, (z+WorldZ)*0.0125f)) > 0.1f;
             }
         }

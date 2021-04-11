@@ -11,16 +11,12 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
+	_wnd->m_Camera.Position = glm::vec3(100.f);
 
 	World world;
 
-	mh.reserve(World::World_Volume);
-
-	GLdouble start_time = glfwGetTime();
-	
-	for (size_t i = 0; i < World::World_Volume; i++)
-		mh.push_back(world.Chunks[i]->GenerateMesh());
-
+	const GLdouble start_time = glfwGetTime();
+	mh = world.GenerateMesh();
 	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 		
 
@@ -55,8 +51,7 @@ void Test::TestTexturedCube::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	for (auto* var : mh)
-		renderer.Draw(var->vao, var->ibo, shader);
+	renderer.Draw(mh->vao, mh->ibo, shader);
 }
 
 void Test::TestTexturedCube::OnImGuiRender()
