@@ -19,8 +19,8 @@
 // Camera
 static Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 static bool keys[1024];
-static GLfloat lastX = 1280.0f / 2;
-static GLfloat lastY = 720.0f / 2;
+static GLdouble lastX = 1280.0f / 2;
+static GLdouble lastY = 720.0f / 2;
 
 static bool firstMouse = true;
 static bool pause = true;
@@ -89,7 +89,7 @@ void Window::loop()
 
 	while (!glfwWindowShouldClose(m_Window))
 	{
-		GLfloat CurrentFrame = glfwGetTime();
+		GLdouble CurrentFrame = glfwGetTime();
 		deltaTime = CurrentFrame - lastFrame;
 		lastFrame = CurrentFrame;
 
@@ -170,8 +170,8 @@ void Window::mouse_callback(GLFWwindow* window, double xpos, double ypos)
 		firstMouse = false;
 	}
 
-	GLfloat xoffset = xpos - lastX;
-	GLfloat yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
+	GLdouble xoffset = xpos - lastX;
+	GLdouble yoffset = lastY - ypos;  // Reversed since y-coordinates go from bottom to left
 
 	lastX = xpos;
 	lastY = ypos;

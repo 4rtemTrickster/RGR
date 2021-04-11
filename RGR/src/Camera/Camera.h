@@ -15,11 +15,11 @@ enum Camera_Movement {
 };
 
 // Default camera values
-static const GLfloat YAW = -90.0f;
-static const GLfloat PITCH = 0.0f;
-static const GLfloat SPEED = 5.0f;
-static const GLfloat SENSITIVTY = 0.25f;
-static const GLfloat ZOOM = 45.0f;
+static const GLdouble YAW = -90.0f;
+static const GLdouble PITCH = 0.0f;
+static const GLdouble SPEED = 5.0f;
+static const GLdouble SENSITIVTY = 0.25f;
+static const GLdouble ZOOM = 45.0f;
 
 // An abstract camera class that processes input and calculates the corresponding Eular Angles, Vectors and Matrices for use in OpenGL
 class Camera
@@ -58,7 +58,7 @@ public:
    void ProcessKeyboard(Camera_Movement direction, GLfloat deltaTime);
 
     // Processes input received from a mouse input system. Expects the offset value in both the x and y direction.
-   void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true);
+   void ProcessMouseMovement(GLdouble xoffset, GLdouble yoffset, GLboolean constrainPitch = true);
 
     // Processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
    void ProcessMouseScroll(GLfloat yoffset);
