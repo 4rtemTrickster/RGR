@@ -11,7 +11,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
-	_wnd->m_Camera.Position = glm::vec3(100.f);
+	_wnd->m_Camera.Position = glm::vec3(0.f);
 
 	World world;
 
