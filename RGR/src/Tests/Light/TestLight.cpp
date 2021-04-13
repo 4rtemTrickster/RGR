@@ -1,8 +1,6 @@
 #include "Help.h"
 #include "TestLight.h"
 
-#include "imgui/imgui.h"
-
 Test::TestLight::TestLight(Window* InWnd)
 	: Test(InWnd),
 	LightShader("res/Shaders/Light/Light.frag", "res/Shaders/Light/Light.vert"),

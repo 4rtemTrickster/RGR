@@ -2,10 +2,10 @@
 
 #include "../Test.h"
 
-#include "../GL/Renderer/Renderer.h"
-#include "../GL/Shader/Shader.h"
-#include "../GL/VertexArray/VertexBufferLayout.h"
-#include "../GL/Texture/Texture.h"
+#include "GL/Renderer/Renderer.h"
+#include "GL/Shader/Shader.h"
+#include "GL/VertexArray/VertexBufferLayout.h"
+#include "GL/Texture/Texture.h"
 
 namespace Test
 {

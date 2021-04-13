@@ -1,9 +1,9 @@
 ﻿#pragma once
 #include "../Test.h"
 
-#include "../Help.h"
+#include "Help.h"
 
-#include "../Vendor/imgui/imgui.h"
+
 
 namespace Test
 {

@@ -14,9 +14,17 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
+#include "stb_image/stb_image.h"
+
+#include "glm/glm.hpp"
+#include "glm/gtc/noise.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+
 #include "imgui/imgui.h"
 
-#include "Logger/Log.h"
+#include "spdlog/logger.h"
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 #include <iostream>
 #include <cmath>
@@ -28,6 +36,8 @@
 #include <vector>
 #include <array>
 #include <unordered_map>
+
+#include "Logger/Log.h"
 
 
 

@@ -1,13 +1,12 @@
 #pragma once
 #include "../Test.h"
-#include "../../Camera/Camera.h"
 
-#include "../../GL/Texture/Texture.h"
-#include "../GL/Renderer/Renderer.h"
-#include "../GL/VertexArray/VertexBufferLayout.h"
 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
+#include "GL/Texture/Texture.h"
+#include "GL/Renderer/Renderer.h"
+#include "GL/VertexArray/VertexBufferLayout.h"
+
+
 
 #include "../Vendor/imgui/imgui.h"
 

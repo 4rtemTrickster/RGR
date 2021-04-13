@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Help.h"
-#include "glm/glm.hpp"
+#include "Help.h"
+
 
 struct ShaderProgramSource;
 

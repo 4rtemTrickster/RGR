@@ -17,7 +17,6 @@ int main(void)
 	}
 	catch (std::runtime_error& e)
 	{
-		//std::cout << "EXCEPTION::" << e.what() << std::endl;
 		LOG_ERROR("{0}",e.what());
 		return -1;
 	}

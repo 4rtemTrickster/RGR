@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "../Help.h"
-#include "../GL/VertexArray/VertexArray.h"
-#include "../GL/IndexBuffer/IndexBuffer.h"
-#include "../GL/Shader/Shader.h"
+#include "Help.h"
+#include "GL/VertexArray/VertexArray.h"
+#include "GL/IndexBuffer/IndexBuffer.h"
+#include "GL/Shader/Shader.h"
 
 namespace GL
 {

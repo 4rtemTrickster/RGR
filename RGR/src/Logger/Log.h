@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include "../Help.h"
+#include "Help.h"
 
-#include "spdlog/logger.h"
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
+
 
 
 class Log

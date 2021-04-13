@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../Help.h"
+#include "Help.h"
 
 namespace GL
 {

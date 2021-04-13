@@ -2,8 +2,7 @@
 #include "Chunk.h"
 
 #include "../../Mesh/Mesh.h"
-#include "glm/glm.hpp"
-#include "glm/gtc/noise.hpp"
+
 
 Chunk::Chunk(GLint WorldX, GLint WorldZ)
     : WorldX(WorldX), WorldZ(WorldZ)

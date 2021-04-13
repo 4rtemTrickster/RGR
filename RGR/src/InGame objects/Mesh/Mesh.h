@@ -1,12 +1,10 @@
 #pragma once
 
-#include "../../Help.h"
+#include "Help.h"
 
-#include "../../GL/VertexArray/VertexArray.h"
-#include "../../GL/VertexArray/VertexBufferLayout.h"
-#include "../../GL/IndexBuffer/IndexBuffer.h"
-
-#include "glm/glm.hpp"
+#include "GL/VertexArray/VertexArray.h"
+#include "GL/VertexArray/VertexBufferLayout.h"
+#include "GL/IndexBuffer/IndexBuffer.h"
 
 
 struct Vertex
