@@ -1,12 +1,13 @@
 #include "GLFW.h"
-#include <GLFW/glfw3.h>
-
-#include <stdexcept>
+#include "Help.h"
 
 GLFW::GLFW()
 {
 	if (!glfwInit())
 		throw std::runtime_error("Could not initialize GLFW");
+
+	// I cant log smt here. Some error here appearse
+	//LOG_INFO("GLFW is initialized");
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 

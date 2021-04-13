@@ -61,6 +61,8 @@ Window::Window(const std::string& title, int width, int height)
 	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 	ImGui_ImplOpenGL3_Init("#version 330 core");
 	ImGui::StyleColorsDark();
+
+	LOG_TRACE("ImGui is initialized");
 }
 
 Window::~Window()

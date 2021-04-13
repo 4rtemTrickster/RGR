@@ -1,4 +1,6 @@
 #pragma once
+// float to double conversion
+#pragma warning(disable:4244)
 
 #define GLFW_INCLUDE_NONE
 #ifdef _WIN32
@@ -11,6 +13,8 @@
 #include <GLFW/glfw3native.h>
 
 #include "Logger/Log.h"
+
+
 
 #include <iostream>
 #include <cmath>
