@@ -26,12 +26,15 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
+#include <omp.h>
+
 #include <iostream>
 #include <cmath>
 #include <fstream>
 #include <sstream>
 #include <functional>
 #include <memory>
+
 #include <string>
 #include <vector>
 #include <array>

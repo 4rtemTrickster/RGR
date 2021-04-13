@@ -91,6 +91,7 @@
       <AdditionalIncludeDirectories>src;src\Vendor\spdlog\include;src/Vendor;$(SolutionDir)Dependencies\GLFW\include; $(SolutionDir)Dependencies\GLEW\include</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Help.h</PrecompiledHeaderFile>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
