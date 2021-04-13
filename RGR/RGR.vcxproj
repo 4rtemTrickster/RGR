@@ -176,7 +176,7 @@
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\GL\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="src\GL\VertexArray\VertexArray.cpp" />
-    <ClCompile Include="src\Tests\Textured Cube\TestTexturedCube.cpp" />
+    <ClCompile Include="src\Tests\Game\TestGame.cpp" />
     <ClCompile Include="src\Tests\Test Menu\TestMenu.cpp" />
     <ClCompile Include="src\Tests\Light\TestLight.cpp" />
   </ItemGroup>
@@ -580,7 +580,7 @@
     <ClInclude Include="src\GL\VertexArray\VertexArray.h" />
     <ClInclude Include="src\GL\VertexArray\VertexBufferLayout.h" />
     <ClInclude Include="src\Tests\Test.h" />
-    <ClInclude Include="src\Tests\Textured Cube\TestTexturedCube.h" />
+    <ClInclude Include="src\Tests\Game\TestGame.h" />
     <ClInclude Include="src\Tests\Test Menu\TestMenu.h" />
     <ClInclude Include="src\Tests\Light\TestLight.h" />
   </ItemGroup>
