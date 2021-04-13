@@ -32,6 +32,7 @@ Window::Window(const std::string& title, int width, int height)
 
 	if (!m_Window)
 		throw std::runtime_error("Could not initialize window");
+	LOG_TRACE("Window is initialized");
 
 
 	SetContextCurrent();
@@ -45,6 +46,7 @@ Window::Window(const std::string& title, int width, int height)
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
 		throw std::runtime_error("Could not initialize GLEW");
+	LOG_TRACE("GLEW is initialized");
 
 	glViewport(0, 0, width, height);
 
