@@ -14,8 +14,6 @@
 
 #include "Logger/Log.h"
 
-
-
 #include <iostream>
 #include <cmath>
 #include <fstream>
