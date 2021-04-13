@@ -1,21 +1,21 @@
 #pragma once
 #include "../Test.h"
-#include "Camera/Camera.h"
+#include "../../Camera/Camera.h"
 
-#include "GL/Texture/Texture.h"
-#include "GL/Renderer/Renderer.h"
-#include "GL/VertexArray/VertexBufferLayout.h"
+#include "../../GL/Texture/Texture.h"
+#include "../GL/Renderer/Renderer.h"
+#include "../GL/VertexArray/VertexBufferLayout.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-#include "Vendor/imgui/imgui.h"
+#include "../Vendor/imgui/imgui.h"
 
 class Mesh;
 
 namespace Test
 {
-	class TestGame : public Test
+	class TestTexturedCube : public Test
 	{
 	private:
 		GL::Renderer renderer;
@@ -37,8 +37,8 @@ namespace Test
 		Mesh* mh;
 
 	public:
-		TestGame(Window* InWnd);
-		~TestGame() override;
+		TestTexturedCube(Window* InWnd);
+		~TestTexturedCube() override;
 
 
 		void OnUpdate(GLfloat deltaTime) override;

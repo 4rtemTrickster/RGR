@@ -1,8 +1,8 @@
-#include "TestGame.cpp"
+#include "TestTexturedCube.h"
 
-#include "InGame objects/Mesh/Mesh.h"
-#include "InGame objects/World/World.h"
-#include "InGame objects/World/Chunk/Chunk.h"
+#include "../../InGame objects/Mesh/Mesh.h"
+#include "../../InGame objects/World/World.h"
+#include "../../InGame objects/World/Chunk/Chunk.h"
 
 Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	: Test(InWnd),
