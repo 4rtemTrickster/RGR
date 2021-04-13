@@ -1,4 +1,6 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
+
 // float to double conversion
 #pragma warning(disable:4244)
 
@@ -12,6 +14,8 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 
+#include "imgui/imgui.h"
+
 #include "Logger/Log.h"
 
 #include <iostream>
@@ -24,6 +28,8 @@
 #include <vector>
 #include <array>
 #include <unordered_map>
+
+
 
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) GLClearError();\

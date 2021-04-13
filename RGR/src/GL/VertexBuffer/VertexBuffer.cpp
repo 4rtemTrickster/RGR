@@ -1,3 +1,4 @@
+#include "Help.h"
 #include "VertexBuffer.h"
 
 GL::VertexBuffer::VertexBuffer()

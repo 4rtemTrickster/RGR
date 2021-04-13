@@ -1,6 +1,7 @@
+#include "Help.h"
 #include "TestMenu.h"
 
-#include "imgui/imgui.h"
+
 
 Test::TestMenu::TestMenu(Test*& currentTestPointer, Window* InWnd)
 	: CurrentTest(currentTestPointer), Test(InWnd)

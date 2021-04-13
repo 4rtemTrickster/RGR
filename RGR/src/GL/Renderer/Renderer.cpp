@@ -1,4 +1,5 @@
-﻿#include "Renderer.h"
+﻿#include "Help.h"
+#include "Renderer.h"
 
 void GL::Renderer::Clear(glm::vec4 ClearColor, GLbitfield mask)const
 {

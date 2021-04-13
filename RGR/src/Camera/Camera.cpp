@@ -1,3 +1,4 @@
+#include "Help.h"
 #include "Camera.h"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch)

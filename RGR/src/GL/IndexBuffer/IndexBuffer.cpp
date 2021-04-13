@@ -1,3 +1,4 @@
+#include "Help.h"
 #include "IndexBuffer.h"
 
 GL::IndexBuffer::IndexBuffer()

@@ -1,4 +1,5 @@
-﻿#include "World.h"
+﻿#include "Help.h"
+#include "World.h"
 
 #define CHUNK(X,Z) (this->Chunks[(X) * Chunk::Chunk_Length + (Z)])
 

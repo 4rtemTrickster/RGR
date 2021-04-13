@@ -1,10 +1,12 @@
-﻿#include "Window.h"
+﻿#include "Help.h"
 
-#include "../Tests/Test.h"
-#include "../Tests/Test Menu/TestMenu.h"
-#include "../Tests/Textured Cube/TestTexturedCube.h"
-#include "../Tests/Clear Color/TestClearColor.h"
-#include "../Tests/Light/TestLight.h"
+#include "Window.h"
+
+#include "Tests/Test.h"
+#include "Tests/Test Menu/TestMenu.h"
+#include "Tests/Textured Cube/TestTexturedCube.h"
+#include "Tests/Clear Color/TestClearColor.h"
+#include "Tests/Light/TestLight.h"
 
 
 #include "imgui/imgui.h"

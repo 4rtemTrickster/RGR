@@ -1,5 +1,6 @@
-#include "GLFW.h"
 #include "Help.h"
+#include "GLFW.h"
+
 
 GLFW::GLFW()
 {

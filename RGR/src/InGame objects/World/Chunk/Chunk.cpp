@@ -1,3 +1,4 @@
+#include "Help.h"
 #include "Chunk.h"
 
 #include "../../Mesh/Mesh.h"
