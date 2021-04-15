@@ -102,39 +102,39 @@ std::vector<Mesh*> World::GenerateMesh()
     std::vector<Vertex> BottomVertices;
     std::vector<GLuint> BottomIndices;
 
-// #pragma omp parallel sections
-//     {
-// #pragma omp section
-//         {
-//             FrontVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             FrontIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-// #pragma omp section
-//         {
-//             BackVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             BackIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-// #pragma omp section
-//         {
-//             LeftVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             LeftIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-// #pragma omp section
-//         {
-//             RightVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             RightIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-// #pragma omp section
-//         {
-//             TopVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             TopIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-// #pragma omp section
-//         {
-//             BottomVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-//             BottomIndices.reserve(Chunk::Chunk_Volume * World_Volume);
-//         }
-//     }
+#pragma omp parallel sections
+    {
+#pragma omp section
+        {
+            FrontVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            FrontIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+#pragma omp section
+        {
+            BackVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            BackIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+#pragma omp section
+        {
+            LeftVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            LeftIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+#pragma omp section
+        {
+            RightVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            RightIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+#pragma omp section
+        {
+            TopVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            TopIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+#pragma omp section
+        {
+            BottomVertices.reserve(Chunk::Chunk_Volume * World_Volume);
+            BottomIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+        }
+    }
 
     for (size_t CZ = 0; CZ < World_Length; ++CZ)
     {
@@ -151,139 +151,124 @@ std::vector<Mesh*> World::GenerateMesh()
                         if (!id)
                             continue;
 
-                        float u = (id * AtlasShift % 16) * uvsize;
-                        float v = 1-((1 + id / 16) * uvsize);
+                        const float u = (id * AtlasShift % 16) * uvsize;
+                        const float v = 1-((1 + id / 16) * uvsize);
 
-#pragma omp parallel sections
+                        // Front to def camera position
+                        if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) && (z == Chunk::Chunk_Length-1 ? !IS_TO_DRAW(x,y,0, CX, CZ + 1) : true))
                         {
-#pragma omp section
-                            {
-                                // Front to def camera position
-                                if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ + 1))
-                                {
-                                    FrontIndices.push_back(FrontIndex++);
-                                    PUSH_BACK_VERTEX(FrontVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift, v);
+                            FrontIndices.push_back(FrontIndex++);
+                            PUSH_BACK_VERTEX(FrontVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift, v);
 
-                                    FrontIndices.push_back(FrontIndex++);
-                                    PUSH_BACK_VERTEX(FrontVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift+uvsize, v);
+                            FrontIndices.push_back(FrontIndex++);
+                            PUSH_BACK_VERTEX(FrontVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift+uvsize, v);
 
-                                    FrontIndices.push_back(FrontIndex);
-                                    FrontIndices.push_back(FrontIndex++);
-                                    PUSH_BACK_VERTEX(FrontVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift + uvsize, v + uvsize);
+                            FrontIndices.push_back(FrontIndex);
+                            FrontIndices.push_back(FrontIndex++);
+                            PUSH_BACK_VERTEX(FrontVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift + uvsize, v + uvsize);
 
-                                    FrontIndices.push_back(FrontIndex++);
-                                    PUSH_BACK_VERTEX(FrontVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift,v + uvsize);
+                            FrontIndices.push_back(FrontIndex++);
+                            PUSH_BACK_VERTEX(FrontVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift,v + uvsize);
 
-                                    FrontIndices.push_back(FrontIndex - 4);
-                                }
-                            }
-#pragma omp section
-                            {
-                                // Back
-                                if (!IS_TO_DRAW(x, y, z - 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ - 1))
-                                {
-                                    BackIndices.push_back(BackIndex++);
-                                    PUSH_BACK_VERTEX(BackVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift, v);
-
-                                    BackIndices.push_back(BackIndex++);
-                                    PUSH_BACK_VERTEX(BackVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift+uvsize, v);
-
-                                    BackIndices.push_back(BackIndex);
-                                    BackIndices.push_back(BackIndex++);
-                                    PUSH_BACK_VERTEX(BackVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift + uvsize, v + uvsize);
-
-                                    BackIndices.push_back(BackIndex++);
-                                    PUSH_BACK_VERTEX(BackVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift,v + uvsize);
-
-                                    BackIndices.push_back(BackIndex - 4);
-                                }
-                            }
-#pragma omp section
-                            {
-                                // Right
-                                if (!IS_TO_DRAW(x + 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX+1, CZ))
-                                {
-                                    RightIndices.push_back(RightIndex++);
-                                    PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift, v);
-
-                                    RightIndices.push_back(RightIndex++);
-                                    PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift+uvsize, v);
-
-                                    RightIndices.push_back(RightIndex);
-                                    RightIndices.push_back(RightIndex++);
-                                    PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift + uvsize, v + uvsize);
-
-                                    RightIndices.push_back(RightIndex++);
-                                    PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift,v + uvsize);
-
-                                    RightIndices.push_back(RightIndex - 4);
-                                }
-                            }
-#pragma omp section
-                            {
-                                // Left
-                                if (!IS_TO_DRAW(x - 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX-1, CZ))
-                                {
-                                    LeftIndices.push_back(LeftIndex++);
-                                    PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v);
-
-                                    LeftIndices.push_back(LeftIndex++);
-                                    PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift+uvsize, v);
-
-                                    LeftIndices.push_back(LeftIndex);
-                                    LeftIndices.push_back(LeftIndex++);
-                                    PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift + uvsize, v + uvsize);
-
-                                    LeftIndices.push_back(LeftIndex++);
-                                    PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v + uvsize);
-
-                                    LeftIndices.push_back(LeftIndex - 4);
-                                }
-                            }
-#pragma omp section
-                            {
-                                // Top
-                                if (!IS_TO_DRAW(x, y + 1, z, CX, CZ))
-                                {
-                                    TopIndices.push_back(TopIndex++);
-                                    PUSH_BACK_VERTEX(TopVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u, v);
-
-                                    TopIndices.push_back(TopIndex++);
-                                    PUSH_BACK_VERTEX(TopVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u+uvsize, v);
-
-                                    TopIndices.push_back(TopIndex);
-                                    TopIndices.push_back(TopIndex++);
-                                    PUSH_BACK_VERTEX(TopVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u + uvsize, v + uvsize);
-
-                                    TopIndices.push_back(TopIndex++);
-                                    PUSH_BACK_VERTEX(TopVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u,v + uvsize);
-
-                                    TopIndices.push_back(TopIndex - 4);
-                                }
-                            }
-#pragma omp section
-                            {
-                                // Bottom
-                                if (!IS_TO_DRAW(x, y - 1, z, CX, CZ))
-                                {
-                                    BottomIndices.push_back(BottomIndex++);
-                                    PUSH_BACK_VERTEX(BottomVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift, v);
-
-                                    BottomIndices.push_back(BottomIndex++);
-                                    PUSH_BACK_VERTEX(BottomVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift+uvsize, v);
-
-                                    BottomIndices.push_back(BottomIndex);
-                                    BottomIndices.push_back(BottomIndex++);
-                                    PUSH_BACK_VERTEX(BottomVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift + uvsize, v + uvsize);
-
-                                    BottomIndices.push_back(BottomIndex++);
-                                    PUSH_BACK_VERTEX(BottomVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift,v + uvsize);
-
-                                    BottomIndices.push_back(BottomIndex - 4);
-                                }
-                            }
+                            FrontIndices.push_back(FrontIndex - 4);
                         }
-                    }
+
+                        // Back
+                        if (!IS_TO_DRAW(x, y, z - 1, CX, CZ) && (z == 0 ? !IS_TO_DRAW(x,y,Chunk::Chunk_Length-1, CX, CZ - 1) : true))
+                        {
+                            BackIndices.push_back(BackIndex++);
+                            PUSH_BACK_VERTEX(BackVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift, v);
+
+                            BackIndices.push_back(BackIndex++);
+                            PUSH_BACK_VERTEX(BackVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift+uvsize, v);
+
+                            BackIndices.push_back(BackIndex);
+                            BackIndices.push_back(BackIndex++);
+                            PUSH_BACK_VERTEX(BackVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift + uvsize, v + uvsize);
+
+                            BackIndices.push_back(BackIndex++);
+                            PUSH_BACK_VERTEX(BackVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift,v + uvsize);
+
+                            BackIndices.push_back(BackIndex - 4);
+                        }
+ 
+                        // Right
+                        if (!IS_TO_DRAW(x + 1, y, z, CX, CZ) && (x == Chunk::Chunk_Width-1 ? !IS_TO_DRAW(0,y,z, CX+1, CZ) : true))
+                        {
+                            RightIndices.push_back(RightIndex++);
+                            PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift, v);
+
+                            RightIndices.push_back(RightIndex++);
+                            PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift+uvsize, v);
+
+                            RightIndices.push_back(RightIndex);
+                            RightIndices.push_back(RightIndex++);
+                            PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift + uvsize, v + uvsize);
+
+                            RightIndices.push_back(RightIndex++);
+                            PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift,v + uvsize);
+
+                            RightIndices.push_back(RightIndex - 4);
+                        }
+   
+                        // Left
+                        if (!IS_TO_DRAW(x - 1, y, z, CX, CZ) && (x == 0 ? !IS_TO_DRAW(Chunk::Chunk_Width-1,y,z, CX-1, CZ) : true))
+                        {
+                            LeftIndices.push_back(LeftIndex++);
+                            PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v);
+
+                            LeftIndices.push_back(LeftIndex++);
+                            PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift+uvsize, v);
+
+                            LeftIndices.push_back(LeftIndex);
+                            LeftIndices.push_back(LeftIndex++);
+                            PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift + uvsize, v + uvsize);
+
+                            LeftIndices.push_back(LeftIndex++);
+                            PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v + uvsize);
+
+                            LeftIndices.push_back(LeftIndex - 4);
+                        }
+
+                        // Top
+                        if (!IS_TO_DRAW(x, y + 1, z, CX, CZ))
+                        {
+                            TopIndices.push_back(TopIndex++);
+                            PUSH_BACK_VERTEX(TopVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u, v);
+
+                            TopIndices.push_back(TopIndex++);
+                            PUSH_BACK_VERTEX(TopVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u+uvsize, v);
+
+                            TopIndices.push_back(TopIndex);
+                            TopIndices.push_back(TopIndex++);
+                            PUSH_BACK_VERTEX(TopVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u + uvsize, v + uvsize);
+
+                            TopIndices.push_back(TopIndex++);
+                            PUSH_BACK_VERTEX(TopVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y + 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 1.0f, 0.0f, u,v + uvsize);
+
+                            TopIndices.push_back(TopIndex - 4);
+                        }
+                        // Bottom
+                        if (!IS_TO_DRAW(x, y - 1, z, CX, CZ))
+                        {
+                            BottomIndices.push_back(BottomIndex++);
+                            PUSH_BACK_VERTEX(BottomVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift, v);
+
+                            BottomIndices.push_back(BottomIndex++);
+                            PUSH_BACK_VERTEX(BottomVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift+uvsize, v);
+
+                            BottomIndices.push_back(BottomIndex);
+                            BottomIndices.push_back(BottomIndex++);
+                            PUSH_BACK_VERTEX(BottomVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift + uvsize, v + uvsize);
+
+                            BottomIndices.push_back(BottomIndex++);
+                            PUSH_BACK_VERTEX(BottomVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, -1.0f, 0.0f, u + BottomShift,v + uvsize);
+
+                            BottomIndices.push_back(BottomIndex - 4);
+                        }
+                           
+                        }
+                    
                 }
             }
         }
@@ -324,6 +309,7 @@ std::vector<Mesh*> World::GenerateMesh()
     }
 
     std::vector<Mesh*> ret;
+    ret.reserve(6);
     ret.push_back(new Mesh(FrontVertices, FrontIndices));
     ret.push_back(new Mesh(BackVertices, BackIndices));
     ret.push_back(new Mesh(RightVertices, RightIndices));
