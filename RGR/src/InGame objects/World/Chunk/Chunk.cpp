@@ -5,6 +5,7 @@
 Chunk::Chunk(GLint WorldX, GLint WorldZ)
     : WorldX(WorldX), WorldZ(WorldZ)
 {
+    
     this->voxels = new Voxel[Chunk_Volume];
 
     for (size_t y = 0; y < Chunk_Height; y++)

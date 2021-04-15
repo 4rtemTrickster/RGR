@@ -53,6 +53,7 @@ VECTOR.push_back({glm::vec3(X,Y,Z), glm::vec3(NX,NY,NZ), glm::vec2(TX,TY)});
 
 World::World()
 {
+    LOG_INFO("Start world generation");
     GLdouble start_time = glfwGetTime();
     
     Chunks.reserve(World_Volume);
