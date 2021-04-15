@@ -3,6 +3,7 @@
 
 // float to double conversion
 #pragma warning(disable:4244)
+#pragma warning(disable:4267)
 
 #define GLFW_INCLUDE_NONE
 #ifdef _WIN32
