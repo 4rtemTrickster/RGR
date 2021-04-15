@@ -9,7 +9,7 @@ public:
 	static const GLuint World_Length = 16;
 	static const GLuint World_Volume = World_Width * World_Length;
 
-	Mesh* GenerateMesh();
+	std::vector<Mesh*> GenerateMesh();
 	std::vector<Chunk*> Chunks;
 
 	World();

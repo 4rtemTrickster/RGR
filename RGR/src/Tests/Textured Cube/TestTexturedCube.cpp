@@ -12,7 +12,7 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
-	_wnd->m_Camera.Position = glm::vec3(0.f);
+	_wnd->m_Camera.Position = glm::vec3(150.f);
 
 	World world;
 
@@ -51,8 +51,9 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 void Test::TestTexturedCube::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	renderer.Draw(mh->vao, mh->ibo, shader);
+
+	for	(auto var : mh)
+	renderer.Draw(var->vao, var->ibo, shader);
 }
 
 void Test::TestTexturedCube::OnImGuiRender()
