@@ -1,15 +1,20 @@
 ﻿#include "Help.h"
 #include "World.h"
 
-#define CHUNK(X,Z) (this->Chunks[(X) * Chunk::Chunk_Length + (Z)])
+/**
+ * \brief Provides easier access to the Voxel
+ */
+#define CHUNK(X,Z) (this->Chunks[((Z) * Chunk::Chunk_Width) + (X)])
 
 /**
 * \brief Check's for the presence of a voxel in the chunk
 */
 #define IS_IN_CHUNK(X,Y,Z) (((X) >= 0 && (X) < Chunk::Chunk_Width) && ((Y) >= 0 && (Y) < Chunk::Chunk_Height) && ((Z) >= 0 && (Z) < Chunk::Chunk_Length))
 
+/**
+* \brief Check's for the presence of a Chunk in the World
+*/
 #define CHUNK_IN_WORLD(X,Z) (((X) >=0 && (X) < World_Width) && ((Z) >= 0 && (Z) < World_Length))
-
 
 /**
  * \brief Provides easier access to the Voxel
@@ -23,6 +28,11 @@
 
 /**
 * \brief Checks whether the voxel is being drawn
+* \param X X coordinate of the Voxel
+* \param Y Y coordinate of the Voxel
+* \param Z Z coordinate of the Voxel
+* \param CX X coordinate of the Chunk
+* \param CZ Z coordinate of the Chunk
 */
 #define IS_TO_DRAW(X,Y,Z, CX,CZ) ((IS_IN_CHUNK(X,Y,Z)) && (CHUNK_IN_WORLD(CX,CZ) && (VOXEL(X,Y,Z, CX,CZ).id)))
 
@@ -54,7 +64,7 @@ World::World()
         }
     }
     
-    //Chunks.shrink_to_fit();
+    Chunks.shrink_to_fit();
 
     LOG_INFO("World generated in {0} seconds", glfwGetTime() - start_time);
 }
@@ -93,7 +103,7 @@ Mesh* World::GenerateMesh()
                         float v = 1-((1 + id / 16) * uvsize);
 
                         // Front to def camera position
-                        if (!IS_TO_DRAW(x, y, z + 1, CX, CZ))
+                        if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ + 1))
                         {
                             indices.push_back(index++);
                             PUSH_BACK_VERTEX(x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift, v);
@@ -112,7 +122,7 @@ Mesh* World::GenerateMesh()
                         }
 
                         // Back
-                        if (!IS_TO_DRAW(x, y, z - 1, CX, CZ))
+                        if (!IS_TO_DRAW(x, y, z - 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ - 1))
                         {
                             indices.push_back(index++);
                             PUSH_BACK_VERTEX(x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift, v);
@@ -131,7 +141,7 @@ Mesh* World::GenerateMesh()
                         }
 
                         // Right
-                        if (!IS_TO_DRAW(x + 1, y, z, CX, CZ))
+                        if (!IS_TO_DRAW(x + 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX+1, CZ))
                         {
                             indices.push_back(index++);
                             PUSH_BACK_VERTEX(x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift, v);
@@ -150,7 +160,7 @@ Mesh* World::GenerateMesh()
                         }
 
                         // Left
-                        if (!IS_TO_DRAW(x - 1, y, z, CX, CZ))
+                        if (!IS_TO_DRAW(x - 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX - 1, CZ))
                         {
                             indices.push_back(index++);
                             PUSH_BACK_VERTEX(x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v);
