@@ -159,7 +159,7 @@ std::vector<Mesh*> World::GenerateMesh()
 #pragma omp section
                             {
                                 // Front to def camera position
-                                if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) || !IS_TO_DRAW(x,y,z, CX, CZ + 1))
+                                if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ + 1))
                                 {
                                     FrontIndices.push_back(FrontIndex++);
                                     PUSH_BACK_VERTEX(FrontVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, 1.0f, u + SideShift, v);
@@ -180,7 +180,7 @@ std::vector<Mesh*> World::GenerateMesh()
 #pragma omp section
                             {
                                 // Back
-                                if (!IS_TO_DRAW(x, y, z - 1, CX, CZ) || !IS_TO_DRAW(x,y,z, CX, CZ - 1))
+                                if (!IS_TO_DRAW(x, y, z - 1, CX, CZ) && !IS_TO_DRAW(x,y,z, CX, CZ - 1))
                                 {
                                     BackIndices.push_back(BackIndex++);
                                     PUSH_BACK_VERTEX(BackVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 0.0f, 0.0f, -1.0f, u + SideShift, v);
@@ -201,7 +201,7 @@ std::vector<Mesh*> World::GenerateMesh()
 #pragma omp section
                             {
                                 // Right
-                                if (!IS_TO_DRAW(x + 1, y, z, CX, CZ) || !IS_TO_DRAW(x,y,z, CX+1, CZ))
+                                if (!IS_TO_DRAW(x + 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX+1, CZ))
                                 {
                                     RightIndices.push_back(RightIndex++);
                                     PUSH_BACK_VERTEX(RightVertices,x + 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z + 0.5f + CHUNK(CX,CZ)->GetWorldZ(), 1.0f, 0.0f, 0.0f, u + SideShift, v);
@@ -222,7 +222,7 @@ std::vector<Mesh*> World::GenerateMesh()
 #pragma omp section
                             {
                                 // Left
-                                if (!IS_TO_DRAW(x - 1, y, z, CX, CZ) || !IS_TO_DRAW(x,y,z, CX-1, CZ))
+                                if (!IS_TO_DRAW(x - 1, y, z, CX, CZ) && !IS_TO_DRAW(x,y,z, CX-1, CZ))
                                 {
                                     LeftIndices.push_back(LeftIndex++);
                                     PUSH_BACK_VERTEX(LeftVertices,x - 0.5f + CHUNK(CX,CZ)->GetWorldX(), y - 0.5f, z - 0.5f + CHUNK(CX,CZ)->GetWorldZ(), -1.0f, 0.0f, 0.0f, u + SideShift, v);
