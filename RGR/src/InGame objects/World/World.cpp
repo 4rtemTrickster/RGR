@@ -248,6 +248,7 @@ std::vector<Mesh*> World::GenerateMesh()
 
                             TopIndices.push_back(TopIndex - 4);
                         }
+                        
                         // Bottom
                         if (!IS_TO_DRAW(x, y - 1, z, CX, CZ))
                         {
@@ -266,9 +267,7 @@ std::vector<Mesh*> World::GenerateMesh()
 
                             BottomIndices.push_back(BottomIndex - 4);
                         }
-                           
-                        }
-                    
+                    }
                 }
             }
         }

@@ -14,7 +14,7 @@ class Mesh;
 
 namespace Test
 {
-	class TestTexturedCube : public Test
+	class TestGame : public Test
 	{
 	private:
 		GL::Renderer renderer;
@@ -36,8 +36,8 @@ namespace Test
 		std::vector<Mesh*> mh;
 
 	public:
-		TestTexturedCube(Window* InWnd);
-		~TestTexturedCube() override;
+		TestGame(Window* InWnd);
+		~TestGame() override;
 
 
 		void OnUpdate(GLfloat deltaTime) override;

@@ -1,11 +1,11 @@
 #include "Help.h"
-#include "TestTexturedCube.h"
+#include "TestGame.h"
 
 #include "InGame objects/Mesh/Mesh.h"
 #include "InGame objects/World/World.h"
 #include "InGame objects/World/Chunk/Chunk.h"
 
-Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
+Test::TestGame::TestGame(Window* InWnd)
 	: Test(InWnd),
 	model(1.0f),
 	view(1.0f),
@@ -34,11 +34,11 @@ Test::TestTexturedCube::TestTexturedCube(Window* InWnd)
 	this->shader.SetUniform1i("u_Texture", 0);
 }
 
-Test::TestTexturedCube::~TestTexturedCube()
+Test::TestGame::~TestGame()
 {
 }
 
-void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
+void Test::TestGame::OnUpdate(GLfloat deltaTime)
 {
 	this->view = this->_wnd->m_Camera.GetViewMatrix();
 	this->shader.SetUniformMat4f("u_View", this->view);
@@ -48,7 +48,7 @@ void Test::TestTexturedCube::OnUpdate(GLfloat deltaTime)
 	this->_wnd->do_movement();
 }
 
-void Test::TestTexturedCube::OnRender()
+void Test::TestGame::OnRender()
 {
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -56,7 +56,7 @@ void Test::TestTexturedCube::OnRender()
 	renderer.Draw(var->vao, var->ibo, shader);
 }
 
-void Test::TestTexturedCube::OnImGuiRender()
+void Test::TestGame::OnImGuiRender()
 {
 	
 }

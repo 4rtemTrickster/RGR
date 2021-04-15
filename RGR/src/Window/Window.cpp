@@ -4,7 +4,7 @@
 
 #include "Tests/Test.h"
 #include "Tests/Test Menu/TestMenu.h"
-#include "Tests/Textured Cube/TestTexturedCube.h"
+#include "Tests/Game/TestGame.h"
 #include "Tests/Clear Color/TestClearColor.h"
 #include "Tests/Light/TestLight.h"
 
@@ -88,7 +88,7 @@ void Window::loop()
 	CurrentTest = TestMenu;
 
 	TestMenu->RegisterTest<Test::TestClearColor>("Clear Color");
-	TestMenu->RegisterTest<Test::TestTexturedCube>("Textured Cube");
+	TestMenu->RegisterTest<Test::TestGame>("Test Game");
 	TestMenu->RegisterTest<Test::TestLight>("Light");
 
 
