@@ -63,9 +63,10 @@ World::World()
 
     for (int z = 0; z < World_Length; z++)
     {
+        const GLuint WorldZ = z * Chunk::Chunk_Length;
         for (int x = 0; x < World_Width; x++)
         {
-            Chunks.push_back(new Chunk(x * Chunk::Chunk_Width, z * Chunk::Chunk_Length));
+            Chunks.push_back(new Chunk(x * Chunk::Chunk_Width, WorldZ));
         }
     }
     
