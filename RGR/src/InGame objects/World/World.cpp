@@ -107,33 +107,33 @@ std::vector<Mesh*> World::GenerateMesh()
     {
 #pragma omp section
         {
-            FrontVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            FrontIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            FrontVertices.reserve(Chunk::Chunk_Width * World_Width * 4);
+            FrontIndices.reserve(Chunk::Chunk_Width * World_Width * 4);
         }
 #pragma omp section
         {
-            BackVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            BackIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            BackVertices.reserve(Chunk::Chunk_Width * World_Width * 4);
+            BackIndices.reserve(Chunk::Chunk_Width * World_Length * 4);
         }
 #pragma omp section
         {
-            LeftVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            LeftIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            LeftVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            LeftIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
         }
 #pragma omp section
         {
-            RightVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            RightIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            RightVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            RightIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
         }
 #pragma omp section
         {
-            TopVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            TopIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            TopVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            TopIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
         }
 #pragma omp section
         {
-            BottomVertices.reserve(Chunk::Chunk_Volume * World_Volume);
-            BottomIndices.reserve(Chunk::Chunk_Volume * World_Volume);
+            BottomVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            BottomIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
         }
     }
 
