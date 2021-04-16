@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../../../Help.h"
-#include "../../Mesh/Mesh.h"
+#include "Help.h"
 #include "Voxel/Voxel.h"
 
 class Chunk

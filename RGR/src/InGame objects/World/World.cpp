@@ -1,10 +1,8 @@
 ﻿#include "Help.h"
+#include "../Mesh/Mesh.h"
 #include "World.h"
 
-/**
- * \brief Provides easier access to the Voxel
- */
-#define CHUNK(X,Z) (this->Chunks[((Z) * Chunk::Chunk_Width) + (X)])
+
 
 /**
 * \brief Check's for the presence of a voxel in the chunk
@@ -15,6 +13,11 @@
 * \brief Check's for the presence of a Chunk in the World
 */
 #define CHUNK_IN_WORLD(X,Z) (((X) >=0 && (X) < World_Width) && ((Z) >= 0 && (Z) < World_Length))
+
+/**
+* \brief Provides easier access to the Chunk
+*/
+#define CHUNK(X,Z) (this->Chunks[((Z) * World_Width) + (X)])
 
 /**
  * \brief Provides easier access to the Voxel
@@ -58,11 +61,11 @@ World::World()
     
     Chunks.reserve(World_Volume);
 
-    for (int z = 0; z < World_Length; ++z)
+    for (int z = 0; z < World_Length; z++)
     {
-        for (int x = 0; x < World_Width; ++x)
+        for (int x = 0; x < World_Width; x++)
         {
-            Chunks.push_back(new Chunk(x * World_Width, z * World_Length));
+            Chunks.push_back(new Chunk(x * Chunk::Chunk_Width, z * Chunk::Chunk_Length));
         }
     }
     
@@ -137,15 +140,15 @@ std::vector<Mesh*> World::GenerateMesh()
         }
     }
 
-    for (size_t CZ = 0; CZ < World_Length; ++CZ)
+    for (GLint CZ = 0; CZ < World_Length; ++CZ)
     {
-        for (size_t CX = 0; CX < World_Width; ++CX)
+        for (GLint CX = 0; CX < World_Width; ++CX)
         {
-            for (size_t y = 0; y < Chunk::Chunk_Height; y++)
+            for (GLint y = 0; y < Chunk::Chunk_Height; y++)
             {
-                for (size_t z = 0; z < Chunk::Chunk_Length; z++)
+                for (GLint z = 0; z < Chunk::Chunk_Length; z++)
                 {
-                    for (size_t x = 0; x < Chunk::Chunk_Width; x++)
+                    for (GLint x = 0; x < Chunk::Chunk_Width; x++)
                     {
                         const GLuint id = VOXEL(x, y, z, CX, CZ).id;
                 

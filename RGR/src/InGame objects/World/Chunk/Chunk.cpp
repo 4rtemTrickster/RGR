@@ -11,14 +11,14 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
     {
         for (size_t x = 0; x < Chunk_Width; x++)
         {
-            const GLfloat height = glm::perlin(glm::vec3((x + WorldX) * 0.025f, (z + WorldZ) * 0.025f, 0.0f)) + 1;
+            const GLfloat height = glm::perlin(glm::vec3((x + WorldX) * 0.025f, (z + WorldZ) * 0.025f, 0.0f)) + 2;
             for (size_t y = 0; y < Chunk_Height; y++)
             {
-                GLint id = y <= height * 25;
-
+                GLint id = y <= height * 25 + 5;
+    
                 if (y < height * 25 - 5)
                     id = 2;
-
+    
                 this->voxels[(y * Chunk_Length + z) * Chunk_Width + x].id = id;
             }
         }
