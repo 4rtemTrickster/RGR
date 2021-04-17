@@ -12,6 +12,7 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
         for (size_t x = 0; x < Chunk_Width; x++)
         {
             const GLfloat height = glm::perlin(glm::vec3((x + WorldX) * 0.025f, (z + WorldZ) * 0.025f, 0.0f)) + 2;
+            
             for (size_t y = 0; y < Chunk_Height; y++)
             {
                 GLint id = y <= height * 25 + 5;
@@ -20,6 +21,8 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
                     id = 2;
                 if (y < height * 25+5 - 5)
                     id = 3;
+                if(y == 0)
+                    id = 4;
     
                 this->voxels[(y * Chunk_Length + z) * Chunk_Width + x].id = id;
             }
