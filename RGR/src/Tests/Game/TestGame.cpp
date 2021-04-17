@@ -14,13 +14,6 @@ Test::TestGame::TestGame(Window* InWnd)
 {
 	_wnd->m_Camera.Position = glm::vec3(150.f);
 
-	World world;
-
-	const GLdouble start_time = glfwGetTime();
-	mh = world.GenerateMesh();
-	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
-		
-
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
 	this->shader.Bind();
@@ -32,6 +25,12 @@ Test::TestGame::TestGame(Window* InWnd)
 
 	this->texture.Bind();
 	this->shader.SetUniform1i("u_Texture", 0);
+
+	World world;
+
+	const GLdouble start_time = glfwGetTime();
+	mh = world.GenerateMesh();
+	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 }
 
 Test::TestGame::~TestGame()
@@ -53,7 +52,7 @@ void Test::TestGame::OnRender()
 	renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for	(auto var : mh)
-	renderer.Draw(var->vao, var->ibo, shader);
+		renderer.Draw(var->vao, var->ibo, shader);
 }
 
 void Test::TestGame::OnImGuiRender()

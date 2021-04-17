@@ -61,10 +61,10 @@ World::World()
     
     Chunks.reserve(World_Volume);
 
-    for (int z = 0; z < World_Length; z++)
+    for (int z = 0; z < World_Length; ++z)
     {
         const GLuint WorldZ = z * Chunk::Chunk_Length;
-        for (int x = 0; x < World_Width; x++)
+        for (int x = 0; x < World_Width; ++x)
         {
             Chunks.push_back(new Chunk(x * Chunk::Chunk_Width, WorldZ));
         }
@@ -111,33 +111,33 @@ std::vector<Mesh*> World::GenerateMesh()
     {
 #pragma omp section
         {
-            FrontVertices.reserve(Chunk::Chunk_Width * World_Width * 4);
-            FrontIndices.reserve(Chunk::Chunk_Width * World_Width * 4);
+            FrontVertices.reserve(Chunk::Chunk_Width * Chunk::Chunk_Height * World_Width * 4);
+            FrontIndices.reserve(Chunk::Chunk_Width * Chunk::Chunk_Height * World_Width * 4);
         }
 #pragma omp section
         {
-            BackVertices.reserve(Chunk::Chunk_Width * World_Width * 4);
-            BackIndices.reserve(Chunk::Chunk_Width * World_Length * 4);
+            BackVertices.reserve(Chunk::Chunk_Width * Chunk::Chunk_Height * World_Width * 4);
+            BackIndices.reserve(Chunk::Chunk_Width * Chunk::Chunk_Height * World_Length * 4);
         }
 #pragma omp section
         {
-            LeftVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
-            LeftIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            LeftVertices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
+            LeftIndices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
         }
 #pragma omp section
         {
-            RightVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
-            RightIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            RightVertices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
+            RightIndices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
         }
 #pragma omp section
         {
-            TopVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
-            TopIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            TopVertices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
+            TopIndices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
         }
 #pragma omp section
         {
-            BottomVertices.reserve(Chunk::Chunk_Length * World_Length * 4);
-            BottomIndices.reserve(Chunk::Chunk_Length * World_Length * 4);
+            BottomVertices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
+            BottomIndices.reserve(Chunk::Chunk_Length * Chunk::Chunk_Height * World_Length * 4);
         }
     }
 
@@ -145,11 +145,11 @@ std::vector<Mesh*> World::GenerateMesh()
     {
         for (GLint CX = 0; CX < World_Width; ++CX)
         {
-            for (GLint y = 0; y < Chunk::Chunk_Height; y++)
+            for (GLint y = 0; y < Chunk::Chunk_Height; ++y)
             {
-                for (GLint z = 0; z < Chunk::Chunk_Length; z++)
+                for (GLint z = 0; z < Chunk::Chunk_Length; ++z)
                 {
-                    for (GLint x = 0; x < Chunk::Chunk_Width; x++)
+                    for (GLint x = 0; x < Chunk::Chunk_Width; ++x)
                     {
                         const GLuint id = VOXEL(x, y, z, CX, CZ).id;
                 
