@@ -16,8 +16,10 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
             {
                 GLint id = y <= height * 25 + 5;
     
-                if (y < height * 25 - 5)
+                if (y < height * 25+5 - 1)
                     id = 2;
+                if (y < height * 25+5 - 5)
+                    id = 3;
     
                 this->voxels[(y * Chunk_Length + z) * Chunk_Width + x].id = id;
             }
