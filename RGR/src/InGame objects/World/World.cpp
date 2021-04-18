@@ -77,27 +77,29 @@ World::World()
 std::vector<Mesh*> World::GenerateMeshes()
 {
     std::vector<Mesh*> ret;
-    ret.resize(4);
+    std::vector<std::pair<std::vector<Vertex>,std::vector<GLuint>>> VertexIndexData;
+    VertexIndexData.resize(4);
+    ret.reserve(4);
  
     
     auto lb = std::async(std::launch::async, [&]()
     {
-        ret[0] = ProcessBlock(0,0, World_Width/2, World_Length/2);
+       VertexIndexData[0] = ProcessBlock(0,0, World_Width/2, World_Length/2);
     });
 
     auto rb =std::async(std::launch::async, [&]()
     {
-        ret[1] = ProcessBlock(World_Width/2,0, World_Width, World_Length/2);
+        VertexIndexData[1] = ProcessBlock(World_Width/2,0, World_Width, World_Length/2);
     });
-
+    
     auto lt = std::async(std::launch::async, [&]()
     {
-        ret[2] =  ProcessBlock(0,World_Length/2, World_Width/2, World_Length);
+        VertexIndexData[2] =  ProcessBlock(0,World_Length/2, World_Width/2, World_Length);
     });
-
+    
     auto rt =std::async(std::launch::async, [&]()
     {
-        ret[3] = ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length);
+        VertexIndexData[3] = ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length);
     });
 
     lb.wait();
@@ -105,11 +107,16 @@ std::vector<Mesh*> World::GenerateMeshes()
     lt.wait();
     rt.wait();
 
+    ret.push_back(new Mesh(VertexIndexData[0].first, VertexIndexData[0].second));
+    ret.push_back(new Mesh(VertexIndexData[1].first, VertexIndexData[1].second));
+    ret.push_back(new Mesh(VertexIndexData[2].first, VertexIndexData[2].second));
+    ret.push_back(new Mesh(VertexIndexData[3].first, VertexIndexData[3].second));
+
     
     return ret;
 }
 
-Mesh* World::ProcessBlock(const GLuint XStart, const GLuint ZStart, const GLuint XBorder, const GLuint ZBorder)
+std::pair<std::vector<Vertex>,std::vector<GLuint>> World::ProcessBlock(const GLuint XStart, const GLuint ZStart, const GLuint XBorder, const GLuint ZBorder)
 {
     const GLfloat uvsize = 1.0f / 16.0f;
     const GLfloat SideShift = 1 * uvsize;
@@ -120,8 +127,11 @@ Mesh* World::ProcessBlock(const GLuint XStart, const GLuint ZStart, const GLuint
     std::vector<GLuint> Indices;
     size_t Index = 0;
 
+
     Vertices.reserve(World_Volume/4 * Chunk::Chunk_Volume * 4);
     Indices.reserve(World_Volume/4 * Chunk::Chunk_Volume * (4+6));
+ 
+
 
     
      for (GLuint CZ = ZStart; CZ < ZBorder; ++CZ)
@@ -263,8 +273,10 @@ Mesh* World::ProcessBlock(const GLuint XStart, const GLuint ZStart, const GLuint
 
     Vertices.shrink_to_fit();
     Indices.shrink_to_fit();
+
     
-    return new Mesh(Vertices, Indices);
+    
+    return std::make_pair(Vertices, Indices);
 }
 
 World::~World()
