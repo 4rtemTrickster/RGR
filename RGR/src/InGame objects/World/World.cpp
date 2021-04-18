@@ -77,33 +77,47 @@ World::World()
 std::vector<Mesh*> World::GenerateMeshes()
 {
     std::vector<Mesh*> ret;
-    ret.reserve(4);
+    std::mutex mt;
 
-    std::thread BottomLeft([this, &ret]()
+    auto lb = std::async(std::launch::async, [&]()
     {
-        ret.push_back(this->ProcessBlock(0,0, World_Width/2,World_Length/2));
+        auto mesh = ProcessBlock(0, 0, World_Width / 2, World_Length / 2);
+
+        std::lock_guard<std::mutex> lock(mt);
+        ret.push_back(mesh);
     });
 
-    std::thread BottlomRight([this, &ret]()
+    auto rb =std::async(std::launch::async, [&]()
     {
-        ret.push_back(ProcessBlock(World_Width/2,0, World_Width, World_Length/2));
+        auto mesh = ProcessBlock(World_Width/2,0, World_Width, World_Length/2);
+
+        std::lock_guard<std::mutex> lock(mt);
+        ret.push_back(mesh);
     });
 
-    std::thread TopLeft([this, &ret]()
+    auto lt = std::async(std::launch::async, [&]()
     {
-        ret.push_back(ProcessBlock(0,World_Length/2, World_Width/2, World_Length));
+        auto mesh = ProcessBlock(0,World_Length/2, World_Width/2, World_Length);
+
+        std::lock_guard<std::mutex> lock(mt);
+        ret.push_back(mesh);
     });
 
-    std::thread TopRight([this, &ret]()
+    auto rt =std::async(std::launch::async, [&]()
     {
-        ret.push_back(ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length));
+        
+        auto mesh = ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length);
+
+        std::lock_guard<std::mutex> lock(mt);
+        ret.push_back(mesh);
     });
 
-   
-    BottomLeft.join();
-    BottlomRight.join();
-    TopLeft.join();
-    TopRight.join();
+    lb.wait();
+    rb.wait();
+    lt.wait();
+    rt.wait();
+    
+
     
     return ret;
 }

@@ -28,6 +28,7 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 #include <thread>
+#include <future>
 
 #include <iostream>
 #include <cmath>
