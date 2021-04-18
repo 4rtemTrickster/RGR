@@ -29,7 +29,7 @@ Test::TestGame::TestGame(Window* InWnd)
 	World world;
 
 	const GLdouble start_time = glfwGetTime();
-	mh = world.GenerateMesh();
+	mh = world.GenerateMeshes();
 	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 }
 
