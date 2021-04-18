@@ -16,14 +16,14 @@ public:
 
     ~Chunk();
 
-    std::vector<Voxel>& GetVoxels() { return voxels;}
+    Voxel* GetVoxels() { return voxels;}
 
     GLint GetWorldX() const { return WorldX;}
     GLint GetWorldZ() const { return WorldZ;}
 
 
 protected:
-    std::vector<Voxel> voxels;
+    Voxel* voxels;
 
     GLint WorldX;
     GLint WorldZ;
