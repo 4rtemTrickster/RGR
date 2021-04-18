@@ -74,49 +74,50 @@ World::World()
     LOG_INFO("World generated in {0} seconds", glfwGetTime() - start_time);
 }
 
+void World::PB(Mesh* mesh, const GLuint XStart, const GLuint ZStart, const GLuint XBorder, const GLuint ZBorder)
+{
+    mesh = World::ProcessBlock(0, 0, XBorder, ZBorder);
+}
+
 std::vector<Mesh*> World::GenerateMeshes()
 {
     std::vector<Mesh*> ret;
-    std::mutex mt;
-
+    ret.reserve(4);
+    Mesh* LB;
+    Mesh* RB;
+    Mesh* LT;
+    Mesh* RT;
+    
     auto lb = std::async(std::launch::async, [&]()
     {
-        auto mesh = ProcessBlock(0, 0, World_Width / 2, World_Length / 2);
-
-        std::lock_guard<std::mutex> lock(mt);
-        ret.push_back(mesh);
+        LB = ProcessBlock();
     });
 
     auto rb =std::async(std::launch::async, [&]()
     {
-        auto mesh = ProcessBlock(World_Width/2,0, World_Width, World_Length/2);
-
-        std::lock_guard<std::mutex> lock(mt);
-        ret.push_back(mesh);
+        RB = ProcessBlock(World_Width/2,0, World_Width, World_Length/2);
     });
 
     auto lt = std::async(std::launch::async, [&]()
     {
-        auto mesh = ProcessBlock(0,World_Length/2, World_Width/2, World_Length);
-
-        std::lock_guard<std::mutex> lock(mt);
-        ret.push_back(mesh);
+        LT =  ProcessBlock(0,World_Length/2, World_Width/2, World_Length);
     });
 
     auto rt =std::async(std::launch::async, [&]()
     {
-        
-        auto mesh = ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length);
+        RT = ProcessBlock(World_Width/2, World_Length/2, World_Width, World_Length);
 
-        std::lock_guard<std::mutex> lock(mt);
-        ret.push_back(mesh);
     });
 
     lb.wait();
     rb.wait();
     lt.wait();
     rt.wait();
-    
+
+    ret.push_back(LB);
+    ret.push_back(RB);
+    ret.push_back(LT);
+    ret.push_back(RT);
 
     
     return ret;

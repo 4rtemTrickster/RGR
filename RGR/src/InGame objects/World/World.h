@@ -11,6 +11,7 @@ public:
 
 	std::vector<Mesh*> GenerateMeshes();
 	Mesh* ProcessBlock(const GLuint XStart = 0, const GLuint ZStart = 0, const GLuint XBorder = World_Width, const GLuint ZBorder = World_Length);
+	void PB(Mesh* mesh, const GLuint XStart = 0, const GLuint ZStart = 0, const GLuint XBorder = World::World_Width, const GLuint ZBorder = World::World_Length);
 	std::vector<Chunk*> Chunks;
 
 	World();
