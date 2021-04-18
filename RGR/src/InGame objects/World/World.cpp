@@ -82,7 +82,7 @@ std::vector<Mesh*> World::GenerateMeshes()
     
     auto lb = std::async(std::launch::async, [&]()
     {
-        ret[0] = ProcessBlock();
+        ret[0] = ProcessBlock(0,0, World_Width/2, World_Length/2);
     });
 
     auto rb =std::async(std::launch::async, [&]()

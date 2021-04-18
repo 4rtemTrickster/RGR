@@ -7,7 +7,7 @@
 int main(void)
 {
 	try
-	{
+	{	
 		GLFW glfw;
 		Log::Init();
 
