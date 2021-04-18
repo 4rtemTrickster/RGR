@@ -13,18 +13,17 @@ public:
     static const GLuint Chunk_Volume = Chunk_Width * Chunk_Length * Chunk_Height;
 
     Chunk(GLint WorldX, GLint WorldZ);
-    Chunk() = default;
 
     ~Chunk();
 
-    Voxel* GetVoxels() { return voxels;}
+    std::vector<Voxel>& GetVoxels() { return voxels;}
 
     GLint GetWorldX() const { return WorldX;}
     GLint GetWorldZ() const { return WorldZ;}
 
 
 protected:
-    Voxel* voxels = nullptr;
+    std::vector<Voxel> voxels;
 
     GLint WorldX;
     GLint WorldZ;

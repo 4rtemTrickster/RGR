@@ -58,19 +58,18 @@ World::World()
     LOG_INFO("Start world generation");
     GLdouble start_time = glfwGetTime();
     
-    Chunks.reserve(World_Volume);
+    Chunks.resize(World_Volume);
+
 
     for (int z = 0; z < World_Length; ++z)
     {
         const GLuint WorldZ = z * Chunk::Chunk_Length;
         for (int x = 0; x < World_Width; ++x)
-        {
-            Chunks.push_back(new Chunk(x * Chunk::Chunk_Width, WorldZ));
-        }
+            CHUNK(x, z) = new Chunk(x * Chunk::Chunk_Width, WorldZ);
+        
     }
-    
-    Chunks.shrink_to_fit();
 
+    
     LOG_INFO("World generated in {0} seconds", glfwGetTime() - start_time);
 }
 
