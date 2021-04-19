@@ -1,9 +1,10 @@
 #include "Help.h"
 #include "TestGame.h"
 
+
+#include "InGame objects/Loading Screen/LoadingScreen.h"
 #include "InGame objects/Mesh/Mesh.h"
 #include "InGame objects/World/World.h"
-#include "InGame objects/World/Chunk/Chunk.h"
 
 Test::TestGame::TestGame(Window* InWnd)
 	: Test(InWnd),
@@ -12,6 +13,18 @@ Test::TestGame::TestGame(Window* InWnd)
 	proj(1.0f),
 	shader("res/Shaders/TexturedBox/TexturedBox.frag", "res/Shaders/TexturedBox/TexturedBox.vert")
 {
+	{
+		LoadingScreen ls;
+		renderer.Clear(glm::vec4(0.12f, 0.3f, 0.8f, 1.0f), GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		renderer.Draw(ls.va, ls.ib, ls._shader);
+		glfwSwapBuffers(_wnd->GetWnd());
+	}
+
+	World world;
+
+	const GLdouble start_time = glfwGetTime();
+	mh = world.GenerateMeshes();
+	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 	_wnd->m_Camera.Position = glm::vec3(150.f);
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
@@ -25,12 +38,6 @@ Test::TestGame::TestGame(Window* InWnd)
 
 	this->texture.Bind();
 	this->shader.SetUniform1i("u_Texture", 0);
-
-	World world;
-
-	const GLdouble start_time = glfwGetTime();
-	mh = world.GenerateMeshes();
-	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
 }
 
 Test::TestGame::~TestGame()

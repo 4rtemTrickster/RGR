@@ -29,6 +29,7 @@ public:
 
 	inline int GetWindowWidth() const { return m_Width; }
 	inline int GetWindowHeight() const { return m_Height; }
+	GLFWwindow* GetWnd() { return m_Window;}
 
 private:
 	// Is called whenever a key is pressed/released via GLFW

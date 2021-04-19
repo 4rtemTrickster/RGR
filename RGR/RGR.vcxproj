@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\InGame objects\Loading Screen\LoadingScreen.cpp" />
     <ClCompile Include="src\InGame objects\Mesh\Mesh.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\GL\Shader\Shader.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="src\Tests\Light\TestLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\InGame objects\Loading Screen\LoadingScreen.h" />
     <ClInclude Include="src\InGame objects\Mesh\Mesh.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\GL\Shader\Shader.h" />
@@ -339,6 +341,9 @@
     <Image Include="res\Textures\Texture Atlas\TextureAtlas.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="res\Shaders\Loading Screen\LoadingScreen.frag" />
+    <Content Include="res\Shaders\Loading Screen\LoadingScreen.vert" />
+    <Content Include="res\Textures\Loading Screen.png" />
     <Content Include="src\Vendor\spdlog\include\spdlog\fmt\bundled\LICENSE.rst" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
