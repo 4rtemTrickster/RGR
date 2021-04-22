@@ -25,7 +25,7 @@ Test::TestGame::TestGame(Window* InWnd)
 	const GLdouble start_time = glfwGetTime();
 	mh = world.GenerateMeshes();
 	LOG_INFO("Chunk's data generated in {0} seconds", glfwGetTime() - start_time);
-	_wnd->m_Camera.Position = glm::vec3(150.f);
+	_wnd->m_Camera.Position = glm::vec3(-1.0f);
 
 	this->proj = glm::perspective(glm::radians(this->_wnd->m_Camera.Zoom), static_cast<float>(this->_wnd->GetWindowWidth()) / static_cast<float>(this->_wnd->GetWindowHeight()), 0.1f, 100.0f);
 
