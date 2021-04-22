@@ -126,14 +126,21 @@ std::pair<std::vector<Vertex>,std::vector<GLuint>> World::ProcessBlock(const GLu
     std::vector<GLuint> Indices;
     size_t Index = 0;
 
+    auto v = std::async(std::launch::async, [&]()
+    {
+        Vertices.reserve(World_Volume/4 * Chunk::Chunk_Volume * 4);
+    });
 
-    Vertices.reserve(World_Volume/4 * Chunk::Chunk_Volume * 4);
-    Indices.reserve(World_Volume/4 * Chunk::Chunk_Volume * (4+6));
- 
+    auto i = std::async(std::launch::async, [&]()
+    {
+        Indices.reserve(World_Volume / 4 * Chunk::Chunk_Volume * (4 + 6));
+    });
 
 
-    
-     for (GLuint CZ = ZStart; CZ < ZBorder; ++CZ)
+    v.wait();
+    i.wait();
+
+    for (GLuint CZ = ZStart; CZ < ZBorder; ++CZ)
     {
         for (GLuint CX = XStart; CX < XBorder; ++CX)
         {
@@ -144,12 +151,13 @@ std::pair<std::vector<Vertex>,std::vector<GLuint>> World::ProcessBlock(const GLu
                     for (GLuint x = 0; x < Chunk::Chunk_Width; ++x)
                     {
                         const GLuint id = VOXEL(x, y, z, CX, CZ).id;
-                
+
                         if (!id)
                             continue;
 
                         const float u = (id * AtlasShift % 16) * uvsize;
                         const float v = 1-((1 + id / 16) * uvsize);
+
 
                         // Front to def camera position
                         if (!IS_TO_DRAW(x, y, z + 1, CX, CZ) && (z == Chunk::Chunk_Length-1 ? !IS_TO_DRAW(x,y,0, CX, CZ + 1) : true))

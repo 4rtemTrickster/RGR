@@ -13,6 +13,7 @@ namespace GL
 	public:
 		VertexBuffer();
 		VertexBuffer(const void* data, GLuint size);
+		VertexBuffer(VertexBuffer&& other) noexcept;
 		~VertexBuffer();
 
 		void Bind() const;

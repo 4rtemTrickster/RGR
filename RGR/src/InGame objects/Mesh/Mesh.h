@@ -22,6 +22,9 @@ struct Vertex
 
 class Mesh
 {
+public:
+	Mesh(Mesh&& other) noexcept;
+
 private:
 	std::vector<Vertex> vertices;
 	std::vector<GLuint> indices;
