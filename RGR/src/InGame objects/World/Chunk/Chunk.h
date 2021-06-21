@@ -17,6 +17,7 @@ public:
     ~Chunk();
 
     Voxel* GetVoxels() { return voxels;}
+    Voxel* GetVoxelByGlobalCoord();
 
     GLint GetWorldX() const { return WorldX;}
     GLint GetWorldZ() const { return WorldZ;}

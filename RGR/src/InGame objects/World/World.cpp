@@ -128,7 +128,7 @@ std::pair<std::vector<Vertex>,std::vector<GLuint>> World::ProcessBlock(const GLu
 
     auto v = std::async(std::launch::async, [&]()
     {
-        Vertices.reserve(World_Volume/4 * Chunk::Chunk_Volume * 4);
+        Vertices.reserve(World_Volume / 4 * Chunk::Chunk_Volume * 4);
     });
 
     auto i = std::async(std::launch::async, [&]()

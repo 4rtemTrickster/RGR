@@ -33,3 +33,8 @@ Chunk::Chunk(GLint WorldX, GLint WorldZ)
 Chunk::~Chunk()
 {
 }
+
+Voxel* Chunk::GetVoxelByGlobalCoord()
+{
+    
+}
